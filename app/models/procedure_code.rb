@@ -1,0 +1,2 @@
+class ProcedureCode < ApplicationRecord
+end
