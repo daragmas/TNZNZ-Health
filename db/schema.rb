@@ -74,6 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_09_200746) do
     t.string "code"
     t.string "description"
     t.string "category"
+    t.boolean "common_procedure?"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

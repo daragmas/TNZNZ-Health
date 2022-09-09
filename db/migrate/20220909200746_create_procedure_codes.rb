@@ -4,6 +4,7 @@ class CreateProcedureCodes < ActiveRecord::Migration[7.0]
       t.string :code
       t.string :description
       t.string :category
+      t.boolean :common_procedure?
 
       t.timestamps
     end

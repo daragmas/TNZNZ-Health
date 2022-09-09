@@ -21,9 +21,13 @@ puts "seeding hospitals"
 puts "seeding CPT codes"
 
 # NYP
-json_file =File.read(Rails.root.join('lib', 'seeds', 'nyp.json'))
-codes = JSON.parse(json_file)
 
+json_file = File.read(Rails.root.join('lib', 'seeds', 'nyp.json'))
+codes = JSON.parse(json_file)
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'common_procedures.csv'))
+csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+common_by_code = Array.new
+csv.each { |r| common_by_code << r["CPT Code"] }
 codes.each do |k|
     t = ProcedureCode.new
     p = Pricing.new
@@ -31,6 +35,7 @@ codes.each do |k|
         t.code = k["Code (CPT/DRG)"]
         t.description = k["Description"]
         # switch statement to determine category
+        t[:common_procedure?] = true if common_by_code.include? t.code
         t.save
         p.hospital_id = @h1.id
         p.procedure_code_id = t.id
@@ -81,6 +86,17 @@ codes.each do |k|
     else
         puts "skipped #{k["Code (CPT/DRG)"]}"
     end
+
+# Common Procedures
+
+
+    # csv.each do |row|
+    #     c = ProcedureCode.find_by(code: row['CPT Code'])
+    #     if c
+    #         c[:common_procedure?] = true
+    #     end
+    # end
+
 end
 
 
