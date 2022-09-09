@@ -1,10 +1,18 @@
-import { NavbarContainer } from "./styles/navbar-styles";
+import { NavbarContainer, NavItem, NavLogo } from "./styles/navbar-styles";
 const Navbar = () => {
     return (
-        <NavbarContainer>
-            
-        </NavbarContainer>
-    )
+      <NavbarContainer>
+        <NavItem>
+          <NavLogo />
+        </NavItem>
+        <NavItem>
+
+        </NavItem>
+        <NavItem>
+
+        </NavItem>
+      </NavbarContainer>
+    );
 }
 
 export default Navbar;
