@@ -8,6 +8,7 @@
 
 require 'csv'
 require 'json'
+require 'byebug'
 
 Hospital.destroy_all
 Pricing.destroy_all
@@ -35,7 +36,16 @@ codes.each do |k|
         t.code = k["Code (CPT/DRG)"]
         t.description = k["Description"]
         # switch statement to determine category
-        t[:common_procedure?] = true if common_by_code.include? t.code
+        if common_by_code.include?(t.code)
+            t[:common_procedure?] = true
+            match = csv.find { |row| row['CPT Code'] == t.code }
+            c = CommonProcedureCode.new
+            c.code = match['CPT Code']
+            c.description = match['Description']
+            c.category = match['Category']
+            c[:common_procedure?] = true
+            c.save!
+        end
         t.save
         p.hospital_id = @h1.id
         p.procedure_code_id = t.id
@@ -86,18 +96,20 @@ codes.each do |k|
     else
         puts "skipped #{k["Code (CPT/DRG)"]}"
     end
+end
 
 # Common Procedures
 
+#     csv.each do |row|
+#         c = CommonProcedureCode.new
+#         c.code = row['CPT Code']
+#         c.description = row['Description']
+#         c.category = row['Category']
+#         c[:common_procedure?] = true
+#         c.save!
+#     end
 
-    # csv.each do |row|
-    #     c = ProcedureCode.find_by(code: row['CPT Code'])
-    #     if c
-    #         c[:common_procedure?] = true
-    #     end
-    # end
-
-end
+# end
 
 
 # puts "seeding..."
