@@ -50,6 +50,7 @@ codes.each do |k|
             c.save!
         else
             # switch statement to determine category
+            t[:common_procedure?] = false
             if t.code.last != "F" && t.code.last != "T"
                 t.category = case t.code
                 when /^00/ then "COVID Vaccinations"

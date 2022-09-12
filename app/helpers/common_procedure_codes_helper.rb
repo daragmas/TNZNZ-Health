@@ -1,0 +1,2 @@
+module CommonProcedureCodesHelper
+end

@@ -1,11 +1,28 @@
-import { NavbarContainer } from "./styles/navbar-styles";
-const Navbar = () => {
-    return (
-        <NavbarContainer>
-            <h3> NAV STUFF GOES HERE!</h3>
-            
-        </NavbarContainer>
-    )
+import { Nav,NavbarContainer, NavItem, NavLogo, NavLoginContainer, NavLoginItem, MobileIcon } from "./styles/navbar";
+import {FaBars} from 'react-icons/fa'
+const Navbar = ({toggleSidebar}) => {
+return (
+  <>
+    <Nav>
+      <NavbarContainer>
+        <NavItem>
+          <NavLogo image={process.env.PUBLIC_URL + "/logo.png"} />
+        </NavItem>
+        <MobileIcon onClick={toggleSidebar}>
+          <FaBars />
+        </MobileIcon>
+        <NavItem>TNZNZ Health</NavItem>
+        <NavItem>
+          <NavLoginContainer>
+            <NavLoginItem to="">Login</NavLoginItem>
+            <NavLoginItem to="">Register</NavLoginItem>
+          </NavLoginContainer>
+        </NavItem>
+      </NavbarContainer>
+    </Nav>
+  </>
+);
+>>>>>>> main
 }
 
 export default Navbar;
