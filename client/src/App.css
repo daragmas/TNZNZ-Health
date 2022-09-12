@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  
+
 }
 
 .App-logo {
@@ -14,27 +14,19 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 
 .Video {
-  position: absolute;
-  width: 100vw;
-  left: 50%;
-  top: 30%;
-  /* height: 45%; */
-  opacity: 10%;
+  position: relative;
+  /* left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); */
+  opacity: 20%;
   object-fit: cover;
-  transform: translate(-50%);
+  border-radius: 10px;
   z-index: -1;
+  height: 250px;
+  width: 250px;
+  padding: 20px;
 }
 
 

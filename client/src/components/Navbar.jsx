@@ -1,4 +1,3 @@
-import { NavbarContainer } from "./styles/navbar-styles";
 import { Nav, NavbarContainer, NavItem, NavLogo, NavLoginContainer, NavLoginItem, MobileIcon } from "./styles/navbar";
 import { FaBars } from 'react-icons/fa'
 const Navbar = ({ toggleSidebar }) => {
