@@ -1,0 +1,2 @@
+class CommonProcedureCode < ApplicationRecord
+end
