@@ -10,6 +10,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom"
+import Search from './components/Search';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -17,7 +18,7 @@ root.render(
   <BrowserRouter>
     <Navbar/>
     <Routes>
-      <Route path='/' element={<App/>}/>
+      <Route path="TNZNZ-Health/" element={<Search/>}/>
     </Routes>
   </BrowserRouter>
 );
