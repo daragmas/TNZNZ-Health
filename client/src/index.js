@@ -6,13 +6,14 @@ import {
   Routes,
   Route,
 } from "react-router-dom"
+import Search from './components/Search';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route/>
+      <Route path="/" element={<Search/>}/>
     </Routes>
   </BrowserRouter>
 );
