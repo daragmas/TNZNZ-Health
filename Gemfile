@@ -76,3 +76,4 @@ group :test do
 end
 
 gem "geocoder"
+gem 'rack-cors'

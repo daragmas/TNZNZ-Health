@@ -18,7 +18,7 @@ root.render(
   <BrowserRouter>
     <Navbar/>
     <Routes>
-      <Route path="TNZNZ-Health/" element={<Search/>}/>
+      <Route path="/search" element={<Search/>}/>
     </Routes>
     <App/>
   </BrowserRouter>

@@ -22,7 +22,6 @@ return (
     </Nav>
   </>
 );
->>>>>>> main
 }
 
 export default Navbar;
