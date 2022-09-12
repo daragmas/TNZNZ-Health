@@ -13,4 +13,6 @@ class ProcedureCode < ApplicationRecord
     def average_cost_at_hospital(hospital_id)
         self.pricings.find_by!(hospital_id: hospital_id).average_cost
     end
+
+    
 end
