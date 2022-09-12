@@ -7,11 +7,13 @@ import {
   Route,
 } from "react-router-dom"
 import Search from './components/Search';
+import Navbar from './components/Navbar'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <BrowserRouter>
+  <Navbar/>
     <Routes>
       <Route path="TNZNZ-Health/" element={<Search/>}/>
     </Routes>

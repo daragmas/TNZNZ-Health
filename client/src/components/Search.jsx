@@ -7,8 +7,14 @@ const Search = ()=>{
         setSearchTerm(e.target.value)
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
+        //TODO: Put in database URL once routes are set up
+        const req = await fetch("localhost:3000/search", {
+        header:{"Content-type":"application/json"},
+        body: {"search_query":`${searchTerm}`}
+        })
+        const res = await req.json()
         
     }
     return (
