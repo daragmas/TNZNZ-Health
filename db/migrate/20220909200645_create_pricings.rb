@@ -1,8 +1,8 @@
 class CreatePricings < ActiveRecord::Migration[7.0]
   def change
     create_table :pricings do |t|
-      t.float :hospital_id
-      t.float :procedure_code_id
+      t.integer :hospital_id
+      t.integer :procedure_code_id
       t.float :gross_charges
       t.float :discounted_cash_price
       t.float :aetna
