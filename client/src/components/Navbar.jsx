@@ -14,8 +14,8 @@ return (
         <NavItem>TNZNZ Health</NavItem>
         <NavItem>
           <NavLoginContainer>
-            <NavLoginItem to="">Login</NavLoginItem>
-            <NavLoginItem to="">Register</NavLoginItem>
+            <NavLoginItem to="/login">Login</NavLoginItem>
+            <NavLoginItem to="/register">Register</NavLoginItem>
           </NavLoginContainer>
         </NavItem>
       </NavbarContainer>
