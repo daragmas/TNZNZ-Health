@@ -4,11 +4,12 @@ import './App.css';
 import Sidebar from './components/Sidebar'
 import Navbar from './components/Navbar'
 import Form from "./components/Form";
+import Search from "./components/Search";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => {setIsSidebarOpen(prev => !prev)}
-  const handleLoginSubmit = async (e, form) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
     const data = {}
     const inputContainers = document.body.getElementsByTagName('form')[0].getElementsByTagName("div");
@@ -22,11 +23,10 @@ function App() {
       } 
     }
     console.log('data', data)
-    const req = await fetch("http://127.0.0.1:3000/login", {
+    const req = await fetch("http://localhost:3000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json",
       },
       body: JSON.stringify(data),
     });
@@ -50,14 +50,15 @@ function App() {
       <Navbar toggleSidebar={toggleSidebar} />
       <Routes>
         {/* Add routes here */}
+        <Route path="/search" element={<Search />} />
         <Route
           path="/login"
           element={
             <Form
               title="Login"
               inputs={[
-                { type: "text", name: 'username', label: "Username" },
-                { type: "password", name: 'password', label: "Password" },
+                { type: "text", name: "username", label: "Username" },
+                { type: "password", name: "password", label: "Password" },
               ]}
               handleSubmit={handleLoginSubmit}
             />
@@ -69,13 +70,19 @@ function App() {
             <Form
               title="Register"
               inputs={[
-                { type: "email", name: 'email',label: "Email" },
-                { type: "text", name: 'username', label: "Username" },
-                { type: "password", name: 'password', label: "Password" },
-                { type: "password", name: 'password_confirmation', label: "Password Confirmation" },
+                { type: "email", name: "email", label: "Email" },
+                { type: "text", name: "username", label: "Username" },
+                { type: "password", name: "password", label: "Password" },
+                {
+                  type: "password",
+                  name: "password_confirmation",
+                  label: "Password Confirmation",
+                },
               ]}
+              handleSubmit={handleRegisterSubmit}
             />
           }
+          
         />
       </Routes>
     </div>

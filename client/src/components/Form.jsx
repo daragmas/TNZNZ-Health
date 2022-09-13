@@ -23,11 +23,11 @@ const Form = ({title, inputs, handleSubmit}) => {
       }
       return obj
     }, {}))
-    
+
   return (
     <FormWrapper>
       <FormTitle>{title}</FormTitle>
-      <FormContainer onSubmit={(e) => handleSubmit(e, form)} ref={form}>
+      <FormContainer onSubmit={handleSubmit} ref={form}>
         {inputs.map((input) => (
           <InputContainer key={input.label}>
             <Label>{input.label}</Label>
