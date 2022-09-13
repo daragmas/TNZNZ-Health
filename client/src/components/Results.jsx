@@ -29,8 +29,14 @@ const Results = ({ searchedProcedure, selectedHospital }) => {
             <div>
                 <div>
                     Selected CPT Code/Procedure: {searchedProcedure.description} <br /><br />
+
+                    Cost for this code at {`${selectedHospital?.hospital_system}`} is probably going to be something along the lines of: ${selectedCost} <br /><br />
+
+                    If you do not have insurance, the cost of this procedure is listed as: ${data.discounted_cash_price}<br /><br />
+
                     Select your insurance: {
                         <select onChange={handleSelectedInsurance}>
+                            <option></option>
                             {(data && data.insurances) ? Object.keys(data.insurances).map((insurance) => {
                                 return (
                                     <option key={insurance} value={data.insurances[insurance]}>{insurance.split('_').map((word) =>
@@ -46,8 +52,6 @@ const Results = ({ searchedProcedure, selectedHospital }) => {
                             }) : null}
                         </select>
                     }<br /><br />
-                    Cost for this code at {`${selectedHospital?.hospital_system}`} is probably going to be something along the lines of: ${selectedCost} <br /><br />
-                    If you do not have insurance, the cost of this procedure is listed as: ${data.discounted_cash_price}
                 </div>
 
 
