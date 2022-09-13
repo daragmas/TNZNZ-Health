@@ -5,9 +5,7 @@ import App from './App';
 
 
 import {
-  BrowserRouter,
-  Routes,
-  Route,
+  BrowserRouter
 } from "react-router-dom"
 
 

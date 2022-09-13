@@ -1,23 +1,19 @@
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
 
-const Search = () => {
+const Search = ({searchedProcedure, setSelectedHospital, setSearchedProcedure}) => {
     //User Input
     const [searchTerm, setSearchTerm] = useState("")
     const [searchZip, setSearchZip] = useState("")
 
     //Server Responses
-    const [searchedProcedure, setSearchedProcedure] = useState({})
+    // const [searchedProcedure, setSearchedProcedure] = useState({})
     const [nearbyHospitals, setNearbyHospitals] = useState([])
 
     //Listener Functions
     const handleChange = (e, setter) => {
         setter(e.target.value)
         console.log(e.target.value)
-    }
-
-    const handleHospitalClick = ()=>{
-        
     }
 
     const handleSubmit = async (e) => {
@@ -39,15 +35,21 @@ const Search = () => {
         setNearbyHospitals(res)
     }
 
+    const handleHospitalClick = (e)=>{
+        console.log(e.target.id)
+        setSelectedHospital(nearbyHospitals[e.target.id])
+        
+    }
+
     // Dynamic HTML Components
 
     const hospital_list = () => {
         return (
             <div id="nearby-hopitals">
-                {nearbyHospitals.map((hospital) => {
+                {nearbyHospitals.map((hospital,index) => {
                     return (
                         <div className="hospital-card" key={hospital.id}>
-                            <NavLink to='/results'><h3>{hospital.hospital_system}</h3></NavLink>
+                            <h3 id={index} onClick={handleHospitalClick}>{hospital.hospital_system}</h3>
                             <small>{hospital.address}</small>
                         </div>)
                 })}
@@ -60,7 +62,7 @@ const Search = () => {
         // console.log(searchedProcedure)
         return (
             <div id="procedure-info">
-                <h3 onClick={handleHospitalClick}>{searchedProcedure.description}</h3>
+                <h3>{searchedProcedure.description}</h3>
                 <small>{searchedProcedure.code}</small>
             </div>)
     }
@@ -91,7 +93,7 @@ const Search = () => {
 
             {procedureInfo()}
 
-            {searchedProcedure != "" ? zip_entry() : null}
+            {searchedProcedure !== "" ? zip_entry() : null}
 
             {hospital_list()}
 

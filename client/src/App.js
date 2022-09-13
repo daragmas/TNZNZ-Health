@@ -1,19 +1,19 @@
 import './App.css';
 import { Routes, Route } from "react-router-dom";
 import { useState } from 'react'
-import './App.css';
 import Sidebar from './components/Sidebar'
 import Navbar from './components/Navbar'
-
 import Form from "./components/Form";
-
 import Home from './components/Home'
 import Search from './components/Search';
 
 
 function App() {
+  //Sidebar
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => { setIsSidebarOpen(prev => !prev) }
+  
+  //User Creation
   const handleLoginSubmit = async (e, form) => {
     e.preventDefault();
     const data = {}
@@ -49,7 +49,12 @@ function App() {
     e.preventDefault();
   }
 
+  const [searchedProcedure, setSearchedProcedure] = useState({})
+  const [selectedHospital, setSelectedHospital] = useState()
 
+
+
+  //Returned Component
   return (
     <div className="App">
 
@@ -85,7 +90,11 @@ function App() {
           }
         />
         <Route index element={<Home />} />
-        <Route path="/search" element={<Search />} />
+        <Route path="/search" element={
+          <Search 
+            searchedProcedure={searchedProcedure} 
+            setSelectedHospital={setSelectedHospital} 
+            setSearchedProcedure={setSearchedProcedure}/>}/>
       </Routes >
     </div >
   );
