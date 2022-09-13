@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import {useState} from 'react'
+import { useState } from 'react'
 import './App.css';
 import Sidebar from './components/Sidebar'
 import Navbar from './components/Navbar'
@@ -42,6 +42,8 @@ function App() {
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
   }
+
+  
   return (
     <div className="App">
       <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />

@@ -17,8 +17,8 @@ ProcedureCode.destroy_all
 
 puts "seeding hospitals"
 
-h1 = Hospital.create!(hospital_system: "New York Presbyterian Hospital", address: "170 William St, New York, NY 10038")
-h2 = Hospital.create!(hospital_system: "St. Flat's Hospital", address: "11 Broadway, New York, NY 10004")
+h1 = Hospital.create!(hospital_system: "New York Presbyterian Hospital", address: "170 William St, New York, NY 10038", transparency_link: "https://www.nyp.org/patients-visitors/paying-for-care/hospital-price-transparency")
+h2 = Hospital.create!(hospital_system: "St. Flat's Hospital", address: "11 Broadway, New York, NY 10004", transparency_link: "https://flatironschool.com/")
 
 puts "seeding CPT codes"
 
@@ -50,6 +50,7 @@ codes.each do |k|
             c.save!
         else
             # switch statement to determine category
+            t[:common_procedure?] = false
             if t.code.last != "F" && t.code.last != "T"
                 t.category = case t.code
                 when /^00/ then "COVID Vaccinations"

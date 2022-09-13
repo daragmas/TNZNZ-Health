@@ -11,6 +11,8 @@ gem "sprockets-rails"
 
 gem 'byebug', '~> 11.1', '>= 11.1.3'
 
+gem 'active_model_serializers', '~> 0.10.2' 
+
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 
@@ -73,3 +75,6 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "geocoder"
+gem 'rack-cors'
