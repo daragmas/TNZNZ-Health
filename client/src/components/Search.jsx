@@ -1,7 +1,9 @@
 import { useState } from "react"
-import { NavLink } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const Search = ({searchedProcedure, setSelectedHospital, setSearchedProcedure}) => {
+    //Setting up redirect
+    let navigate = useNavigate()
     //User Input
     const [searchTerm, setSearchTerm] = useState("")
     const [searchZip, setSearchZip] = useState("")
@@ -38,7 +40,7 @@ const Search = ({searchedProcedure, setSelectedHospital, setSearchedProcedure}) 
     const handleHospitalClick = (e)=>{
         console.log(e.target.id)
         setSelectedHospital(nearbyHospitals[e.target.id])
-        
+        navigate("/results") 
     }
 
     // Dynamic HTML Components
