@@ -1,13 +1,15 @@
 {
   "files": {
-    "main.css": "/TNZNZ-Health/static/css/main.e6c13ad2.css",
-    "main.js": "/TNZNZ-Health/static/js/main.2f9157b2.js",
+    "main.css": "/TNZNZ-Health/static/css/main.5efb428c.css",
+    "main.js": "/TNZNZ-Health/static/js/main.8f25800d.js",
+    "static/media/ekg.mp4": "/TNZNZ-Health/static/media/ekg.2a68293e62ea3ded1974.mp4",
+    "static/media/docPic.jpg": "/TNZNZ-Health/static/media/docPic.1f202188beb5f096e64f.jpg",
     "index.html": "/TNZNZ-Health/index.html",
-    "main.e6c13ad2.css.map": "/TNZNZ-Health/static/css/main.e6c13ad2.css.map",
-    "main.2f9157b2.js.map": "/TNZNZ-Health/static/js/main.2f9157b2.js.map"
+    "main.5efb428c.css.map": "/TNZNZ-Health/static/css/main.5efb428c.css.map",
+    "main.8f25800d.js.map": "/TNZNZ-Health/static/js/main.8f25800d.js.map"
   },
   "entrypoints": [
-    "static/css/main.e6c13ad2.css",
-    "static/js/main.2f9157b2.js"
+    "static/css/main.5efb428c.css",
+    "static/js/main.8f25800d.js"
   ]
 }
