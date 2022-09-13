@@ -1,12 +1,13 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-const Search = ({searchedProcedure, setSelectedHospital, setSearchedProcedure}) => {
+const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }) => {
     //Setting up redirect
     let navigate = useNavigate()
     //User Input
     const [searchTerm, setSearchTerm] = useState("")
     const [searchZip, setSearchZip] = useState("")
+    const [isDisabled, setIsDisabled] = useState(true)
 
     //Server Responses
     // const [searchedProcedure, setSearchedProcedure] = useState({})
@@ -26,6 +27,7 @@ const Search = ({searchedProcedure, setSelectedHospital, setSearchedProcedure}) 
         const res = await req.json()
         console.log(res)
         setSearchedProcedure(res)
+        if (res) {setIsDisabled(false) }
     }
 
     const handleZipSubmit = async (e) => {
@@ -37,10 +39,10 @@ const Search = ({searchedProcedure, setSelectedHospital, setSearchedProcedure}) 
         setNearbyHospitals(res)
     }
 
-    const handleHospitalClick = (e)=>{
+    const handleHospitalClick = (e) => {
         console.log(e.target.id)
         setSelectedHospital(nearbyHospitals[e.target.id])
-        navigate("/results") 
+        navigate("/results")
     }
 
     // Dynamic HTML Components
@@ -48,7 +50,7 @@ const Search = ({searchedProcedure, setSelectedHospital, setSearchedProcedure}) 
     const hospital_list = () => {
         return (
             <div id="nearby-hopitals">
-                {nearbyHospitals.map((hospital,index) => {
+                {nearbyHospitals.map((hospital, index) => {
                     return (
                         <div className="hospital-card" key={hospital.id}>
                             <h3 id={index} onClick={handleHospitalClick}>{hospital.hospital_system}</h3>
@@ -69,17 +71,7 @@ const Search = ({searchedProcedure, setSelectedHospital, setSearchedProcedure}) 
             </div>)
     }
 
-    const zip_entry = () => {
-        return (
-            <>
-                <label htmlFor="zip-entry">Zip Code</label>
-                <form id='zip-entry' onSubmit={handleZipSubmit}>
-                    <input type='text' onChange={(e) => handleChange(e, setSearchZip)} />
-                    <input type='submit' />
-                </form>
-            </>)
-    }
-
+    console.log(searchedProcedure)
     //Exported Component
     return (
         <>
@@ -95,7 +87,11 @@ const Search = ({searchedProcedure, setSelectedHospital, setSearchedProcedure}) 
 
             {procedureInfo()}
 
-            {searchedProcedure !== "" ? zip_entry() : null}
+            <label htmlFor="zip-entry">Zip Code</label>
+            <form id='zip-entry' onSubmit={handleZipSubmit}>
+                <input type='text' onChange={(e) => handleChange(e, setSearchZip)} />
+                <button disabled={isDisabled} >Submit</button>
+            </form>
 
             {hospital_list()}
 
