@@ -9,6 +9,7 @@ import Form from "./components/Form";
 
 import Home from './components/Home'
 import Search from './components/Search';
+import Results from './components/Results';
 
 
 function App() {
@@ -83,6 +84,10 @@ function App() {
               ]}
             />
           }
+        />
+        <Route
+          path="/results"
+          element={<Results />}
         />
         <Route index element={<Home />} />
         <Route path="/search" element={<Search />} />
