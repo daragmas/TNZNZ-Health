@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }) => {
@@ -12,6 +12,19 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
     //Server Responses
     // const [searchedProcedure, setSearchedProcedure] = useState({})
     const [nearbyHospitals, setNearbyHospitals] = useState([])
+    const [commonCodes, setCommonCodes] = useState([])
+
+    const getCommonCodes = async () => {
+        const req = await fetch('http://localhost:3000/common_procedure_codes')
+        const res = await req.json()
+        setCommonCodes(res)
+    }
+
+    //Setting up categories
+    useEffect(()=>{        
+        getCommonCodes()
+    },[])
+
 
     //Listener Functions
     const handleChange = (e, setter) => {
@@ -70,8 +83,12 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
                 <small>{searchedProcedure.code}</small>
             </div>)
     }
+    let categories = []
+    commonCodes.map((code) => categories.includes(code.category) ? null : categories.push(code.category) )
+    
+    console.log(commonCodes)
+    console.log(categories)
 
-    console.log(searchedProcedure)
     //Exported Component
     return (
         <>
@@ -94,6 +111,17 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
             </form>
 
             {hospital_list()}
+
+            <hr></hr>
+
+            <h2>Common Categories</h2>
+            {categories.map((category)=>{
+                return(
+                    <div className="category-card">
+                        <h4>{category}</h4>
+                    </div>
+                )
+            })}
 
         </>
     )
