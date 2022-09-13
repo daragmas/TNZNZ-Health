@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :procedure_codes, only: [:index, :show]
   resources :common_procedure_codes, only: [:index, :show]
   resources :hospitals, only: [:index, :show]
+  resources :categories, only: [:index, :show]
 
   get '/procedure_codes/by_code/:code', to: 'procedure_codes#show_by_code'
   get '/common_procedure_codes/by_code/:code', to: 'common_procedure_codes#show_by_code'
