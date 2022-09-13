@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_12_203316) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_13_142430) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,11 +29,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_203316) do
     t.string "transparency_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "latitude"
+    t.float "longitude"
   end
 
   create_table "pricings", force: :cascade do |t|
-    t.integer "hospital_id"
-    t.integer "procedure_code_id"
+    t.float "hospital_id"
+    t.float "procedure_code_id"
     t.float "gross_charges"
     t.float "discounted_cash_price"
     t.float "aetna"

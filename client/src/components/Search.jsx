@@ -1,10 +1,16 @@
 import { useState } from "react"
+import { NavLink } from "react-router-dom"
 
-const Search = () => {
+const Search = ({searchedProcedure, setSelectedHospital, setSearchedProcedure}) => {
+    //User Input
     const [searchTerm, setSearchTerm] = useState("")
     const [searchZip, setSearchZip] = useState("")
-    const [searchedProcedure, setSearchedProcedure] = useState({})
 
+    //Server Responses
+    // const [searchedProcedure, setSearchedProcedure] = useState({})
+    const [nearbyHospitals, setNearbyHospitals] = useState([])
+
+    //Listener Functions
     const handleChange = (e, setter) => {
         setter(e.target.value)
         console.log(e.target.value)
@@ -22,9 +28,35 @@ const Search = () => {
 
     const handleZipSubmit = async (e) => {
         e.preventDefault()
-        console.log(searchZip)
-        /*TODO: Once Geocoder is configured, get hospitals closest to zip code. Then, return procedure costs for those hospital(s) */
+        // console.log(searchZip)
+        const req = await fetch(`http://localhost:3000/hospitals/nearby/${searchZip}`)
+        const res = await req.json()
+        console.log(res)
+        setNearbyHospitals(res)
     }
+
+    const handleHospitalClick = (e)=>{
+        console.log(e.target.id)
+        setSelectedHospital(nearbyHospitals[e.target.id])
+        
+    }
+
+    // Dynamic HTML Components
+
+    const hospital_list = () => {
+        return (
+            <div id="nearby-hopitals">
+                {nearbyHospitals.map((hospital,index) => {
+                    return (
+                        <div className="hospital-card" key={hospital.id}>
+                            <h3 id={index} onClick={handleHospitalClick}>{hospital.hospital_system}</h3>
+                            <small>{hospital.address}</small>
+                        </div>)
+                })}
+            </div>
+        )
+    }
+
 
     const procedureInfo = () => {
         // console.log(searchedProcedure)
@@ -46,9 +78,11 @@ const Search = () => {
             </>)
     }
 
+    //Exported Component
     return (
         <>
-            <form onSubmit={handleSubmit} >
+            <label htmlFor="cpt-search-form">Search</label>
+            <form id="cpt-search-form" onSubmit={handleSubmit} >
                 <input
                     type='text'
                     onChange={(e) => handleChange(e, setSearchTerm)}
@@ -59,7 +93,9 @@ const Search = () => {
 
             {procedureInfo()}
 
-            {searchedProcedure != "" ? zip_entry() : null}
+            {searchedProcedure !== "" ? zip_entry() : null}
+
+            {hospital_list()}
 
         </>
     )
