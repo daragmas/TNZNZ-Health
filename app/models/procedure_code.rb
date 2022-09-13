@@ -1,6 +1,7 @@
 class ProcedureCode < ApplicationRecord
     has_many :pricings
     has_many :hospitals, through: :pricings
+    belongs_to :category
 
     def average_cost_across_hospitals
         total = Array.new
