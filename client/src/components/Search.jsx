@@ -16,18 +16,18 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
     //Listener Functions
     const handleChange = (e, setter) => {
         setter(e.target.value)
-        console.log(e.target.value)
+        // console.log(e.target.value)
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(searchTerm)
+        // console.log(searchTerm)
         //TODO: Put in database URL once routes are set up
         const req = await fetch(`http://localhost:3000/procedure_codes/by_code/${searchTerm}`)
         const res = await req.json()
-        console.log(res)
+        // console.log(res)
         setSearchedProcedure(res)
-        if (res) {setIsDisabled(false) }
+        if (res) { setIsDisabled(false) }
     }
 
     const handleZipSubmit = async (e) => {

@@ -13,7 +13,7 @@ function App() {
   //Sidebar
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => { setIsSidebarOpen(prev => !prev) }
-  
+
   //User Creation
   const handleLoginSubmit = async (e, form) => {
     e.preventDefault();
@@ -92,14 +92,17 @@ function App() {
         />
         <Route
           path="/results"
-          element={<Results />}
+          element={<Results
+            searchedProcedure={searchedProcedure}
+            selectedHospital={selectedHospital}
+          />}
         />
         <Route index element={<Home />} />
         <Route path="/search" element={
-          <Search 
-            searchedProcedure={searchedProcedure} 
-            setSelectedHospital={setSelectedHospital} 
-            setSearchedProcedure={setSearchedProcedure}/>}/>
+          <Search
+            searchedProcedure={searchedProcedure}
+            setSelectedHospital={setSelectedHospital}
+            setSearchedProcedure={setSearchedProcedure} />} />
       </Routes >
     </div >
   );
