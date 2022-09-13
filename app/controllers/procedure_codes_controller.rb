@@ -16,6 +16,26 @@ class ProcedureCodesController < ApplicationController
         render json: procedure_code
     end
 
+    def show_with_cost
+        procedure_code = ProcedureCode.find_by!(id: params[:id])
+        render json: procedure_code, serializer: ProcedureCodeCostSerializer
+    end
+
+    def show_with_cost_at_hospital
+        procedure_code = ProcedureCode.find_by!(id: params[:id])
+        render json: procedure_code, serializer: ProcedureCodeCostHospitalSerializer, hospital_id: params[:hospital_id]
+    end
+
+    def show_with_cost_by_code
+        procedure_code = ProcedureCode.find_by!(code: params[:code])
+        render json: procedure_code, serializer: ProcedureCodeCostSerializer
+    end
+
+    def show_with_cost_by_code_at_hospital
+        procedure_code = ProcedureCode.find_by!(code: params[:code])
+        render json: procedure_code, serializer: ProcedureCodeCostHospitalSerializer, hospital_id: params[:hospital_id]
+    end
+
     private
 
     def render_404
