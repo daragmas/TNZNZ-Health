@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export const Nav = styled.nav`
     
@@ -37,10 +37,11 @@ export const NavLogo = styled.div`
     width: 100px;
     height: 90px;
     border-radius: 24px;
+    margin-top: 5px;
 `
 
 export const Text = styled.h1`
-` 
+`
 export const NavLoginContainer = styled.div`
     display: flex;
     justify-content: center;
@@ -51,7 +52,7 @@ export const NavLoginContainer = styled.div`
         display:none;
     }
 `;
-export const NavLoginItem= styled(NavLink)`
+export const NavLoginItem = styled(NavLink)`
     text-decoration: none;
     color:inherit;
 `;
