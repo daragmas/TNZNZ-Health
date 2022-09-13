@@ -14,13 +14,8 @@ import Search from './components/Search';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-<<<<<<< HEAD
   const toggleSidebar = () => {setIsSidebarOpen(prev => !prev)}
   const handleLoginSubmit = async (e) => {
-=======
-  const toggleSidebar = () => { setIsSidebarOpen(prev => !prev) }
-  const handleLoginSubmit = async (e, form) => {
->>>>>>> main
     e.preventDefault();
     const data = {}
     const inputContainers = document.body.getElementsByTagName('form')[0].getElementsByTagName("div");
