@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { NavLink } from "react-router-dom"
 
 const Search = () => {
     //User Input
@@ -46,7 +47,7 @@ const Search = () => {
                 {nearbyHospitals.map((hospital) => {
                     return (
                         <div className="hospital-card" key={hospital.id}>
-                            <h3>{hospital.hospital_system}</h3>
+                            <NavLink to='/results'><h3>{hospital.hospital_system}</h3></NavLink>
                             <small>{hospital.address}</small>
                         </div>)
                 })}
