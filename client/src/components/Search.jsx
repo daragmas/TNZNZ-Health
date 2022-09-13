@@ -1,13 +1,22 @@
 import { useState } from "react"
 
 const Search = () => {
+    //User Input
     const [searchTerm, setSearchTerm] = useState("")
     const [searchZip, setSearchZip] = useState("")
-    const [searchedProcedure, setSearchedProcedure] = useState({})
 
+    //Server Responses
+    const [searchedProcedure, setSearchedProcedure] = useState({})
+    const [nearbyHospitals, setNearbyHospitals] = useState([])
+
+    //Listener Functions
     const handleChange = (e, setter) => {
         setter(e.target.value)
         console.log(e.target.value)
+    }
+
+    const handleHospitalClick = ()=>{
+        
     }
 
     const handleSubmit = async (e) => {
@@ -22,15 +31,35 @@ const Search = () => {
 
     const handleZipSubmit = async (e) => {
         e.preventDefault()
-        console.log(searchZip)
-        /*TODO: Once Geocoder is configured, get hospitals closest to zip code. Then, return procedure costs for those hospital(s) */
+        // console.log(searchZip)
+        const req = await fetch(`http://localhost:3000/hospitals/nearby/${searchZip}`)
+        const res = await req.json()
+        console.log(res)
+        setNearbyHospitals(res)
     }
+
+    // Dynamic HTML Components
+
+    const hospital_list = () => {
+        return (
+            <div id="nearby-hopitals">
+                {nearbyHospitals.map((hospital) => {
+                    return (
+                        <div className="hospital-card" key={hospital.id}>
+                            <h3>{hospital.hospital_system}</h3>
+                            <small>{hospital.address}</small>
+                        </div>)
+                })}
+            </div>
+        )
+    }
+
 
     const procedureInfo = () => {
         // console.log(searchedProcedure)
         return (
             <div id="procedure-info">
-                <h3>{searchedProcedure.description}</h3>
+                <h3 onClick={handleHospitalClick}>{searchedProcedure.description}</h3>
                 <small>{searchedProcedure.code}</small>
             </div>)
     }
@@ -46,9 +75,11 @@ const Search = () => {
             </>)
     }
 
+    //Exported Component
     return (
         <>
-            <form onSubmit={handleSubmit} >
+            <label htmlFor="cpt-search-form">Search</label>
+            <form id="cpt-search-form" onSubmit={handleSubmit} >
                 <input
                     type='text'
                     onChange={(e) => handleChange(e, setSearchTerm)}
@@ -60,6 +91,8 @@ const Search = () => {
             {procedureInfo()}
 
             {searchedProcedure != "" ? zip_entry() : null}
+
+            {hospital_list()}
 
         </>
     )

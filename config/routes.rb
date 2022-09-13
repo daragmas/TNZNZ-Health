@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   get '/procedure_codes/by_code/:code/cost', to: 'procedure_codes#show_with_cost_by_code'
   get '/procedure_codes/by_code/:code/cost/hospitals/:hospital_id', to: 'procedure_codes#show_with_cost_by_code_at_hospital'
 
+  get '/hospitals/nearby/:zip', to: 'hospitals#nearby'
+
 end
