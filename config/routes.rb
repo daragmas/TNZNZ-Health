@@ -2,12 +2,15 @@ Rails.application.routes.draw do
   
   post '/login', to: 'auth#create'
   post '/register', to: 'users#create'
+  get '/me', to: 'auth#show'
+
 
   resources :pricings, only: [:index, :show] 
   resources :procedure_codes, only: [:index, :show]
   resources :common_procedure_codes, only: [:index, :show]
   resources :hospitals, only: [:index, :show]
   resources :categories, only: [:index, :show]
+
 
   get '/procedure_codes/by_code/:code', to: 'procedure_codes#show_by_code'
   get '/common_procedure_codes/by_code/:code', to: 'common_procedure_codes#show_by_code'

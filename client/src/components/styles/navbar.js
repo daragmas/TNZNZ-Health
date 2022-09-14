@@ -5,6 +5,7 @@ export const Nav = styled.nav`
     
     height: 90px;
     font-size: 1rem;
+    border-bottom: 1px solid black;
 `
 export const NavbarContainer = styled.div`
     display: flex;
@@ -17,7 +18,7 @@ export const NavbarContainer = styled.div`
 export const MobileIcon = styled.div`
     display: none;
 
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 1000px) {
         display: block;
         position: absolute;
         top:0;
@@ -35,20 +36,20 @@ export const NavLogo = styled.div`
     background-image: url(${props => props.image});
     background-repeat: no-repeat;
     width: 100px;
-    height: 90px;
+    height: 80px;
     border-radius: 24px;
     margin-top: 5px;
+    margin-left: 2em;
 `
 
-export const Text = styled.h1`
-`
+
 export const NavLoginContainer = styled.div`
     display: flex;
     justify-content: center;
     gap: 3em;
     height: 90px;
     align-items:center;
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 1000px) {
         display:none;
     }
 `;
@@ -56,4 +57,10 @@ export const NavLoginItem = styled(NavLink)`
     text-decoration: none;
     color:inherit;
 `;
+export const NavLogoutBtn = styled.button`
+    border:none;
+    cursor: pointer;
+    background:transparent;
+    font-size: 1em;
+`
 
