@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
-const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }) => {
+const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure,nearbyHospitals, setNearbyHospitals }) => {
     //Setting up redirect
     let navigate = useNavigate()
 
@@ -12,7 +12,7 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
     const [selectedCategory, setSelectedCategory] = useState('')
 
     //Server Responses
-    const [nearbyHospitals, setNearbyHospitals] = useState([])
+    // const [nearbyHospitals, setNearbyHospitals] = useState([])
     const [commonCodes, setCommonCodes] = useState([])
     const [categories, setCategories] = useState([])
 

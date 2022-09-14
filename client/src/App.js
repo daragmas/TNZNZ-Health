@@ -51,6 +51,7 @@ function App() {
   }
 
   const [searchedProcedure, setSearchedProcedure] = useState({})
+  const [nearbyHospitals, setNearbyHospitals] = useState([])
   const [selectedHospital, setSelectedHospital] = useState()
 
 
@@ -99,7 +100,9 @@ function App() {
           <Search 
             searchedProcedure={searchedProcedure} 
             setSelectedHospital={setSelectedHospital} 
-            setSearchedProcedure={setSearchedProcedure}/>}/>
+            setSearchedProcedure={setSearchedProcedure}
+            setNearbyHospitals={setNearbyHospitals}
+            nearbyHospitals={nearbyHospitals}/>}/>
       </Routes >
     </div >
   );
