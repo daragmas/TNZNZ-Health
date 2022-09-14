@@ -54,6 +54,8 @@ function App() {
   const [nearbyHospitals, setNearbyHospitals] = useState([])
   const [selectedHospital, setSelectedHospital] = useState()
 
+  console.log('nearby', nearbyHospitals)
+
 
 
   //Returned Component

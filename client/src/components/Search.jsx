@@ -1,18 +1,16 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
-const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure,nearbyHospitals, setNearbyHospitals }) => {
+const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure, nearbyHospitals, setNearbyHospitals }) => {
     //Setting up redirect
     let navigate = useNavigate()
 
     //User Input
     const [searchTerm, setSearchTerm] = useState("")
     const [searchZip, setSearchZip] = useState("")
-    const [isDisabled, setIsDisabled] = useState(true)
     const [selectedCategory, setSelectedCategory] = useState('')
 
     //Server Responses
-    // const [nearbyHospitals, setNearbyHospitals] = useState([])
     const [commonCodes, setCommonCodes] = useState([])
     const [categories, setCategories] = useState([])
 
@@ -24,7 +22,6 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure,n
 
     //Setting up categories
     useEffect(() => {
-        // getCommonCodes()
         getData(setCommonCodes, "common_procedure_codes")
         getData(setCategories, "categories")
     }, [])
@@ -33,7 +30,7 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure,n
     //Listener Functions
     const handleChange = (value, setter) => {
         setter(value)
-        // console.log(e.target.value)
+        console.log(value)
     }
 
     const handleSubmit = async (e) => {
@@ -44,7 +41,6 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure,n
         const res = await req.json()
         // console.log(res)
         setSearchedProcedure(res)
-        if (res) { setIsDisabled(false) }
     }
 
     const handleZipSubmit = async (e) => {
@@ -52,7 +48,7 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure,n
         // console.log(searchZip)
         const req = await fetch(`http://localhost:3000/hospitals/nearby/${searchZip}`)
         const res = await req.json()
-        // console.log(res)
+        console.log(res)
         setNearbyHospitals(res)
     }
 
@@ -90,10 +86,10 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure,n
     let common_categories = []
     commonCodes.map((code) => common_categories.includes(code.category) ? null : common_categories.push(code.category) )
 
-    console.log("Common Codes: ", commonCodes)
-    console.log("categories: ", categories)
-    console.log("Common Categories: ", common_categories)
-    console.log("selected Category: ", selectedCategory)
+    // console.log("Common Codes: ", commonCodes)
+    // console.log("categories: ", categories)
+    // console.log("Common Categories: ", common_categories)
+    // console.log("selected Category: ", selectedCategory)
 
     //Exported Component
     return (
@@ -103,7 +99,7 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure,n
                 <input
                     type='text'
                     onChange={(e) => handleChange(e.target.value, setSearchTerm)}
-                    placeholder="Enter keyword or CPT code"
+                    placeholder={ searchTerm ? searchTerm : "Enter CPT code"}
                 />
                 <input type='submit' />
             </form>
@@ -113,7 +109,7 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure,n
             <label htmlFor="zip-entry">Zip Code</label>
             <form id='zip-entry' onSubmit={handleZipSubmit}>
                 <input type='text' onChange={(e) => handleChange(e.target.value, setSearchZip)} />
-                <button disabled={isDisabled} >Submit</button>
+                <button disabled={searchTerm ? false : true} >Submit</button>
             </form>
 
             {hospital_list()}
@@ -127,7 +123,7 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure,n
                         <h4 id={category} onClick={(e)=>handleChange(e.target.id,setSelectedCategory)}>{category}</h4>
                         <div className="category-card-list-container" hidden={category===selectedCategory? false:true}>
                             <ul className="categord-card-list">
-                                {commonCodes.map((code)=>code.category==category ? <li>{code.code}:{code.description}</li>:null)}
+                                {commonCodes.map((code)=>code.category==category ? <li value={code.code} onClick={(e)=>handleChange(e.target.value, setSearchTerm)}>{code.code}:{code.description}</li>:null)}
                             </ul>
                         </div>
                     </div>
