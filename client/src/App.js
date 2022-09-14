@@ -96,6 +96,7 @@ function App() {
           element={<Results
             searchedProcedure={searchedProcedure}
             selectedHospital={selectedHospital}
+            nearbyHospitals={nearbyHospitals}
           />}
         />
         <Route index element={<Home />} />

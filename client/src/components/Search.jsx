@@ -92,10 +92,10 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure, 
     let common_categories = []
     commonCodes.map((code) => common_categories.includes(code.category) ? null : common_categories.push(code.category))
 
-    console.log("Common Codes: ", commonCodes)
-    console.log("categories: ", categories)
-    console.log("Common Categories: ", common_categories)
-    console.log("selected Category: ", selectedCategory)
+    // console.log("Common Codes: ", commonCodes)
+    // console.log("categories: ", categories)
+    // console.log("Common Categories: ", common_categories)
+    // console.log("selected Category: ", selectedCategory)
 
     //Exported Component
     return (
