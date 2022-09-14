@@ -10,6 +10,8 @@ import {
 } from "../styles/global";
 // useDispatch can edit our redux store while useSelector will read the store
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import {login} from '../../redux/user'
 import Cookies from "js-cookie";
 
@@ -17,10 +19,14 @@ const LoginForm = () => {
 
 
   const dispatch = useDispatch()
+  const user = useSelector((state) => state.user.value)
   const [formData, setFormData] = useState({
     username: "",
     password: ""
   });
+  if (user.id) {
+    return <Navigate to="/" replace />;
+  }
 
   const handleChange = (e) => {
     setFormData({...formData, [e.target.name] : e.target.value})
@@ -47,6 +53,7 @@ const LoginForm = () => {
         );
     });
   };
+  
   return (
     <FormWrapper>
       <FormTitle>Login</FormTitle>

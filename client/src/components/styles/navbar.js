@@ -56,4 +56,10 @@ export const NavLoginItem = styled(NavLink)`
     text-decoration: none;
     color:inherit;
 `;
+export const NavLogoutBtn = styled.button`
+    border:none;
+    cursor: pointer;
+    background:transparent;
+    font-size: 1em;
+`
 

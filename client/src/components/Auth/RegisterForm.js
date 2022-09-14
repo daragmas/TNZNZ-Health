@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import {
   FormWrapper,
   FormTitle,
@@ -8,21 +8,30 @@ import {
   Label,
   SubmitButton,
 } from "../styles/global";
+import {Navigate} from 'react-router-dom'
+import { useSelector} from 'react-redux'
 import { useDispatch } from "react-redux";
+import { login } from "../../redux/user";
+import Cookies from "js-cookie";
 const RegisterForm = () => {
-  // inputs is an array of objects that define the input tag.
-  // each input should have a label, type
-
-  const form = useRef({
+  
+  const user = useSelector((state) => state.user.value)
+  const dispatch = useDispatch()
+  const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
     password_confirmation: "",
   });
+  if (user.id) {
+    return <Navigate to="/" replace />;
+  }
+  const handleChange = (e) => {
+    setFormData({...formData, [e.target.name]:e.target.value})
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = new FormData(form.current);
-    console.log("data", data);
+    
     fetch("http://127.0.0.1:3000/register", {
       method: "POST",
       credentials: "include",
@@ -30,40 +39,48 @@ const RegisterForm = () => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(formData),
     })
       .then((r) => r.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        Cookies.set('token', data.token)
+        dispatch(login({id: data.user.id, username: data.user.username, email: data.user.email}))
+      });
   };
 
-  return (
-    <FormWrapper>
-      <FormTitle>Register</FormTitle>
-      <FormContainer onSubmit={handleSubmit} ref={form}>
-        <InputContainer>
-          <Label>Username</Label>
-          <TextInput name="username" type="text" ref={form.username} />
-        </InputContainer>
-        <InputContainer>
-          <Label>Email</Label>
-          <TextInput name="email" type="email" ref={form.email} />
-        </InputContainer>
-        <InputContainer>
-          <Label>Password</Label>
-          <TextInput name="password" type="password" ref={form.password} />
-        </InputContainer>
-        <InputContainer>
-          <Label>Password Confirmation</Label>
-          <TextInput
-            name="password_confirmation"
-            type="password"
-            ref={form.password_confirmation}
-          />
-        </InputContainer>
-        <SubmitButton type="submit" />
-      </FormContainer>
-    </FormWrapper>
-  );
+  
+    return (
+      <FormWrapper>
+        <FormTitle>Register</FormTitle>
+        <FormContainer onSubmit={handleSubmit}>
+          <InputContainer>
+            <Label>Username</Label>
+            <TextInput onChange={handleChange} name="username" type="text" />
+          </InputContainer>
+          <InputContainer>
+            <Label>Email</Label>
+            <TextInput onChange={handleChange} name="email" type="email" />
+          </InputContainer>
+          <InputContainer>
+            <Label>Password</Label>
+            <TextInput
+              onChange={handleChange}
+              name="password"
+              type="password"
+            />
+          </InputContainer>
+          <InputContainer>
+            <Label>Password Confirmation</Label>
+            <TextInput
+              onChange={handleChange}
+              name="password_confirmation"
+              type="password"
+            />
+          </InputContainer>
+          <SubmitButton type="submit" />
+        </FormContainer>
+      </FormWrapper>
+    );
 };
 
 export default RegisterForm;
