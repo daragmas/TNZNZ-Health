@@ -30,17 +30,17 @@ class ApplicationController < ActionController::Base
         end
         
     end
-    # def logged_in?
-    #     !!current_user
-    # end
-    # def authorized
-    #     render json: {errors: ['Please log in']}, status: :unauthorized unless logged_in?
-    # end
+    def logged_in?
+        !!current_user
+    end
+    def authorized
+        render json: {errors: ['Please log in']}, status: :unauthorized unless logged_in?
+    end
 
-    # def render_unprocessable_entity(e)
-    #     render json: {errors: e.record.errors.full_messages}, status: :unprocessable_entity
-    # end
-    # def render_record_not_found(e)
-    #     render json: {errors: "#{e.model} not found"}, status: :not_found
-    # end
+    def render_record_invalid(e)
+        render json: {errors: e.record.errors.full_messages}, status: :unprocessable_entity
+    end
+    def render_record_not_found(e)
+        render json: {errors: "#{e.model} not found"}, status: :not_found
+    end
 end
