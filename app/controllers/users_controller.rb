@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     def create
         user = User.create!(user_params)
         token = encode_token({user_id: user.id})
-        render json: { user: user, jwt: token }
+        render json: { user: user, token: token}
     end
     def show
         render json: {user: User.find(params[:id])}

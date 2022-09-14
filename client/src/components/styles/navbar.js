@@ -17,7 +17,7 @@ export const NavbarContainer = styled.div`
 export const MobileIcon = styled.div`
     display: none;
 
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 1000px) {
         display: block;
         position: absolute;
         top:0;
@@ -38,17 +38,17 @@ export const NavLogo = styled.div`
     height: 90px;
     border-radius: 24px;
     margin-top: 5px;
+    margin-left: 2em;
 `
 
-export const Text = styled.h1`
-`
+
 export const NavLoginContainer = styled.div`
     display: flex;
     justify-content: center;
     gap: 3em;
     height: 90px;
     align-items:center;
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 1000px) {
         display:none;
     }
 `;
