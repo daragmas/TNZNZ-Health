@@ -7,7 +7,7 @@ import {
   TextInput,
   Label,
   SubmitButton,
-} from "../styles/global";
+} from "../styles/auth-forms";
 // useDispatch can edit our redux store while useSelector will read the store
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";

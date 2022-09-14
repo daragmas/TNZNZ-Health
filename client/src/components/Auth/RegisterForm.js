@@ -7,7 +7,7 @@ import {
   TextInput,
   Label,
   SubmitButton,
-} from "../styles/global";
+} from "../styles/auth-forms";
 import {Navigate} from 'react-router-dom'
 import { useSelector} from 'react-redux'
 import { useDispatch } from "react-redux";
