@@ -30,7 +30,7 @@ const Navbar = ({ toggleSidebar }) => {
                   <NavLogoutBtn
                     onClick={() => {
                       Cookies.remove("token");
-                      dispatch(login({ id: -1, username: "", email: "" }));
+                      dispatch(login({}));
                     }}
                   >
                     Logout
