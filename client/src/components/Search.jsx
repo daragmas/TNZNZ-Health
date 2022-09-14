@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+import Cookies from 'js-cookie'
 const Search = () => {
     const [searchTerm, setSearchTerm] = useState("")
     const [searchZip, setSearchZip] = useState("")
@@ -14,7 +14,14 @@ const Search = () => {
         e.preventDefault()
         console.log(searchTerm)
         //TODO: Put in database URL once routes are set up
-        const req = await fetch(`http://localhost:3000/procedure_codes/by_code/${searchTerm}`)
+        const req = await fetch(
+          `http://localhost:3000/procedure_codes/by_code/${searchTerm}`,
+          {
+            headers: {
+                Authorization: `Bearer ${Cookies.get("token")}`,
+            }
+          }
+        );
         const res = await req.json()
         console.log(res)
         setSearchedProcedure(res)

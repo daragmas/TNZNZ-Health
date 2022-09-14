@@ -32,13 +32,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_203536) do
   create_table "hospitals", force: :cascade do |t|
     t.string "hospital_system"
     t.string "address"
+    t.string "transparency_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "pricings", force: :cascade do |t|
-    t.float "hospital_id"
-    t.float "procedure_code_id"
+    t.integer "hospital_id"
+    t.integer "procedure_code_id"
     t.float "gross_charges"
     t.float "discounted_cash_price"
     t.float "aetna"
