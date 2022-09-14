@@ -4,32 +4,36 @@ import { useNavigate } from "react-router-dom"
 const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }) => {
     //Setting up redirect
     let navigate = useNavigate()
+
     //User Input
     const [searchTerm, setSearchTerm] = useState("")
     const [searchZip, setSearchZip] = useState("")
     const [isDisabled, setIsDisabled] = useState(true)
+    const [selectedCategory, setSelectedCategory] = useState('')
 
     //Server Responses
-    // const [searchedProcedure, setSearchedProcedure] = useState({})
     const [nearbyHospitals, setNearbyHospitals] = useState([])
     const [commonCodes, setCommonCodes] = useState([])
+    const [categories, setCategories] = useState([])
 
-    const getCommonCodes = async () => {
-        const req = await fetch('http://localhost:3000/common_procedure_codes')
+    const getData = async (setter, route) => {
+        const req = await fetch(`http://localhost:3000/${route}`)
         const res = await req.json()
-        setCommonCodes(res)
+        setter(res)
     }
 
     //Setting up categories
-    useEffect(()=>{        
-        getCommonCodes()
-    },[])
+    useEffect(() => {
+        // getCommonCodes()
+        getData(setCommonCodes, "common_procedure_codes")
+        getData(setCategories, "categories")
+    }, [])
 
 
     //Listener Functions
-    const handleChange = (e, setter) => {
-        setter(e.target.value)
-        console.log(e.target.value)
+    const handleChange = (value, setter) => {
+        setter(value)
+        // console.log(e.target.value)
     }
 
     const handleSubmit = async (e) => {
@@ -38,9 +42,9 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
         //TODO: Put in database URL once routes are set up
         const req = await fetch(`http://localhost:3000/procedure_codes/by_code/${searchTerm}`)
         const res = await req.json()
-        console.log(res)
+        // console.log(res)
         setSearchedProcedure(res)
-        if (res) {setIsDisabled(false) }
+        if (res) { setIsDisabled(false) }
     }
 
     const handleZipSubmit = async (e) => {
@@ -48,12 +52,12 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
         // console.log(searchZip)
         const req = await fetch(`http://localhost:3000/hospitals/nearby/${searchZip}`)
         const res = await req.json()
-        console.log(res)
+        // console.log(res)
         setNearbyHospitals(res)
     }
 
     const handleHospitalClick = (e) => {
-        console.log(e.target.id)
+        // console.log(e.target.id)
         setSelectedHospital(nearbyHospitals[e.target.id])
         navigate("/results")
     }
@@ -74,7 +78,6 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
         )
     }
 
-
     const procedureInfo = () => {
         // console.log(searchedProcedure)
         return (
@@ -83,11 +86,14 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
                 <small>{searchedProcedure.code}</small>
             </div>)
     }
-    let categories = []
-    commonCodes.map((code) => categories.includes(code.category) ? null : categories.push(code.category) )
-    
-    console.log(commonCodes)
-    console.log(categories)
+
+    let common_categories = []
+    commonCodes.map((code) => common_categories.includes(code.category) ? null : common_categories.push(code.category) )
+
+    console.log("Common Codes: ", commonCodes)
+    console.log("categories: ", categories)
+    console.log("Common Categories: ", common_categories)
+    console.log("selected Category: ", selectedCategory)
 
     //Exported Component
     return (
@@ -96,7 +102,7 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
             <form id="cpt-search-form" onSubmit={handleSubmit} >
                 <input
                     type='text'
-                    onChange={(e) => handleChange(e, setSearchTerm)}
+                    onChange={(e) => handleChange(e.target.value, setSearchTerm)}
                     placeholder="Enter keyword or CPT code"
                 />
                 <input type='submit' />
@@ -106,7 +112,7 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
 
             <label htmlFor="zip-entry">Zip Code</label>
             <form id='zip-entry' onSubmit={handleZipSubmit}>
-                <input type='text' onChange={(e) => handleChange(e, setSearchZip)} />
+                <input type='text' onChange={(e) => handleChange(e.target.value, setSearchZip)} />
                 <button disabled={isDisabled} >Submit</button>
             </form>
 
@@ -115,10 +121,15 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
             <hr></hr>
 
             <h2>Common Categories</h2>
-            {categories.map((category)=>{
+            {common_categories.map((category)=>{
                 return(
                     <div className="category-card">
-                        <h4>{category}</h4>
+                        <h4 id={category} onClick={(e)=>handleChange(e.target.id,setSelectedCategory)}>{category}</h4>
+                        <div className="category-card-list-container" hidden={category===selectedCategory? false:true}>
+                            <ul className="categord-card-list">
+                                {commonCodes.map((code)=>code.category==category ? <li>{code.code}:{code.description}</li>:null)}
+                            </ul>
+                        </div>
                     </div>
                 )
             })}
