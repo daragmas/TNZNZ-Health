@@ -1,21 +1,39 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
-const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }) => {
+const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure, nearbyHospitals, setNearbyHospitals }) => {
     //Setting up redirect
     let navigate = useNavigate()
+
     //User Input
     const [searchTerm, setSearchTerm] = useState("")
     const [searchZip, setSearchZip] = useState("")
     const [isDisabled, setIsDisabled] = useState(true)
+    const [selectedCategory, setSelectedCategory] = useState('')
 
     //Server Responses
-    // const [searchedProcedure, setSearchedProcedure] = useState({})
-    const [nearbyHospitals, setNearbyHospitals] = useState([])
+    // const [nearbyHospitals, setNearbyHospitals] = useState([])
+    const [commonCodes, setCommonCodes] = useState([])
+    const [categories, setCategories] = useState([])
+
+    const getData = async (setter, route) => {
+        const req = await fetch(`http://localhost:3000/${route}`)
+        const res = await req.json()
+        setter(res)
+    }
+
+    //Setting up categories
+    useEffect(() => {
+        // getCommonCodes()
+        getData(setCommonCodes, "common_procedure_codes")
+        getData(setCategories, "categories")
+    }, [])
+
 
     //Listener Functions
-    const handleChange = (e, setter) => {
-        setter(e.target.value)
+
+    const handleChange = (value, setter) => {
+        setter(value)
         // console.log(e.target.value)
     }
 
@@ -61,7 +79,6 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
         )
     }
 
-
     const procedureInfo = () => {
         // console.log(searchedProcedure)
         return (
@@ -71,7 +88,15 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
             </div>)
     }
 
-    // console.log(searchedProcedure)
+
+    let common_categories = []
+    commonCodes.map((code) => common_categories.includes(code.category) ? null : common_categories.push(code.category))
+
+    console.log("Common Codes: ", commonCodes)
+    console.log("categories: ", categories)
+    console.log("Common Categories: ", common_categories)
+    console.log("selected Category: ", selectedCategory)
+
     //Exported Component
     return (
         <>
@@ -79,7 +104,7 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
             <form id="cpt-search-form" onSubmit={handleSubmit} >
                 <input
                     type='text'
-                    onChange={(e) => handleChange(e, setSearchTerm)}
+                    onChange={(e) => handleChange(e.target.value, setSearchTerm)}
                     placeholder="Enter keyword or CPT code"
                 />
                 <input type='submit' />
@@ -89,11 +114,27 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
 
             <label htmlFor="zip-entry">Zip Code</label>
             <form id='zip-entry' onSubmit={handleZipSubmit}>
-                <input type='text' onChange={(e) => handleChange(e, setSearchZip)} />
+                <input type='text' onChange={(e) => handleChange(e.target.value, setSearchZip)} />
                 <button disabled={isDisabled} >Submit</button>
             </form>
 
             {hospital_list()}
+
+            <hr></hr>
+
+            <h2>Common Categories</h2>
+            {common_categories.map((category) => {
+                return (
+                    <div className="category-card">
+                        <h4 id={category} onClick={(e) => handleChange(e.target.id, setSelectedCategory)}>{category}</h4>
+                        <div className="category-card-list-container" hidden={category === selectedCategory ? false : true}>
+                            <ul className="categord-card-list">
+                                {commonCodes.map((code) => code.category == category ? <li>{code.code}:{code.description}</li> : null)}
+                            </ul>
+                        </div>
+                    </div>
+                )
+            })}
 
         </>
     )
