@@ -35,12 +35,12 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
         // console.log(searchZip)
         const req = await fetch(`http://localhost:3000/hospitals/nearby/${searchZip}`)
         const res = await req.json()
-        console.log(res)
+        // console.log(res)
         setNearbyHospitals(res)
     }
 
     const handleHospitalClick = (e) => {
-        console.log(e.target.id)
+        // console.log(e.target.id)
         setSelectedHospital(nearbyHospitals[e.target.id])
         navigate("/results")
     }
@@ -71,7 +71,7 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure }
             </div>)
     }
 
-    console.log(searchedProcedure)
+    // console.log(searchedProcedure)
     //Exported Component
     return (
         <>
