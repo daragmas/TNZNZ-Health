@@ -12,7 +12,7 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure, 
 
     //Server Responses
     const [commonCodes, setCommonCodes] = useState([])
-    const [categories, setCategories] = useState([])
+    // const [categories, setCategories] = useState([])
 
     const getData = async (setter, route) => {
         const req = await fetch(`http://localhost:3000/${route}`)
@@ -23,7 +23,7 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure, 
     //Setting up categories
     useEffect(() => {
         getData(setCommonCodes, "common_procedure_codes")
-        getData(setCategories, "categories")
+        // getData(setCategories, "categories")
     }, [])
 
 
@@ -86,10 +86,7 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure, 
     let common_categories = []
     commonCodes.map((code) => common_categories.includes(code.category) ? null : common_categories.push(code.category) )
 
-    // console.log("Common Codes: ", commonCodes)
-    // console.log("categories: ", categories)
-    // console.log("Common Categories: ", common_categories)
-    // console.log("selected Category: ", selectedCategory)
+    
 
     //Exported Component
     return (
@@ -104,15 +101,16 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure, 
                 <input type='submit' />
             </form>
 
-            {procedureInfo()}
-
             <label htmlFor="zip-entry">Zip Code</label>
             <form id='zip-entry' onSubmit={handleZipSubmit}>
                 <input type='text' onChange={(e) => handleChange(e.target.value, setSearchZip)} />
                 <button disabled={searchTerm ? false : true} >Submit</button>
             </form>
 
-            {hospital_list()}
+            {searchedProcedure? procedureInfo(): null}
+
+
+            {searchZip ? hospital_list(): null}
 
             <hr></hr>
 
@@ -123,7 +121,7 @@ const Search = ({ searchedProcedure, setSelectedHospital, setSearchedProcedure, 
                         <h4 id={category} onClick={(e)=>handleChange(e.target.id,setSelectedCategory)}>{category}</h4>
                         <div className="category-card-list-container" hidden={category===selectedCategory? false:true}>
                             <ul className="categord-card-list">
-                                {commonCodes.map((code)=>code.category==category ? <li value={code.code} onClick={(e)=>handleChange(e.target.value, setSearchTerm)}>{code.code}:{code.description}</li>:null)}
+                                {commonCodes.map((code)=>code.category==category ? <li key={code.id} value={code.code} onClick={(e)=>handleChange(e.target.value, setSearchTerm)}>{code.code}:{code.description}</li>:null)}
                             </ul>
                         </div>
                     </div>
