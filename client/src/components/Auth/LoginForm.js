@@ -25,7 +25,8 @@ const LoginForm = () => {
     password: ""
   });
   const [errors, setErrors] = useState(null)
-  if (user.id) {
+  console.log('username', user.username)
+  if (user.username) {
     return <Navigate to="/" replace />;
   }
 
@@ -45,15 +46,9 @@ const LoginForm = () => {
     const data = await req.json()
       
     if (req.ok) {
-      console.log("user", data);
-      console.log("token", data.token);
-      Cookies.set("token", data.token);
+      Cookies.set('token', data.token)
       dispatch(
-        login({
-          id: data.user.id,
-          username: data.user.username,
-          email: data.user.email,
-        })
+        login(data.user)
       );
     } else {
       setErrors(data.errors[0])

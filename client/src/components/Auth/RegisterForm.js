@@ -25,7 +25,7 @@ const RegisterForm = () => {
     zip_code: ""
   });
   const [errors, setErrors] = useState(null)
-  if (user.id) {
+  if (user.username) {
     return <Navigate to="/" replace />;
   }
   const handleChange = (e) => {
@@ -45,7 +45,7 @@ const RegisterForm = () => {
     const data = await req.json();
     if (req.ok) {
       Cookies.set('token', data.token)
-      dispatch(login({id: data.user.id, username: data.user.username, email: data.user.email}))
+      dispatch(login(data.user));
     } else {
       setErrors(data.errors)
     }
@@ -54,14 +54,19 @@ const RegisterForm = () => {
   return (
     <FormWrapper>
       <FormTitle>Register</FormTitle>
-      <FormContainer onSubmit={handleSubmit} ref={form}>
+      <FormContainer onSubmit={handleSubmit}>
         <InputContainer>
           <Label>Username</Label>
-          <TextInput required name="username" type="text" ref={form.username} />
+          <TextInput
+            required
+            name="username"
+            type="text"
+            onChange={handleChange}
+          />
         </InputContainer>
         <InputContainer>
           <Label>Email</Label>
-          <TextInput name="email" type="email" ref={form.email} />
+          <TextInput name="email" type="email" onChange={handleChange} />
         </InputContainer>
         <InputContainer>
           <Label>Password</Label>
@@ -69,7 +74,7 @@ const RegisterForm = () => {
             required
             name="password"
             type="password"
-            ref={form.password}
+            onChange={handleChange}
           />
         </InputContainer>
         <InputContainer>
@@ -78,7 +83,7 @@ const RegisterForm = () => {
             required
             name="password_confirmation"
             type="password"
-            ref={form.password_confirmation}
+            onChange={handleChange}
           />
         </InputContainer>
         <InputContainer>
@@ -88,10 +93,11 @@ const RegisterForm = () => {
             type="text"
             minLength={5}
             maxLength={9}
-            ref={form.password_confirmation}
+            onChange={handleChange}
           />
         </InputContainer>
         <SubmitButton type="submit" />
+        {errors && errors.map(e => <p key={e}>{e}</p>)}
       </FormContainer>
     </FormWrapper>
   );

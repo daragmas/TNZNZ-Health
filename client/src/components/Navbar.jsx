@@ -35,6 +35,8 @@ const Navbar = ({ toggleSidebar }) => {
                   >
                     Logout
                   </NavLogoutBtn>
+                  <NavLoginItem to="/profile">Profile</NavLoginItem>
+
                 </>
               ) : (
                 <>
