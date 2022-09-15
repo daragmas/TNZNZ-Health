@@ -21,6 +21,7 @@ const ResultCards = ({ hospital, searchedProcedure, selectedInsuranceName, setPr
     }
 
     return (
+
         < div className="compare-results">
             {hospital.hospital_system}
 

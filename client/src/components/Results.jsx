@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react"
 import ResultCards from "./ResultCards"
+import { useNavigate } from "react-router-dom"
 
 const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals, setPricingForEstimate }) => {
     const [thisHospitalData, setThisHospitalData] = useState({})
     const [selectedCost, setSelectedCost] = useState(-1)
     const [selectedInsuranceName, setSelectedInsuranceName] = useState('')
+
+    const navigate = useNavigate()
 
     const getResultInfo = async () => {
         let req = await fetch(`http://localhost:3000/pricings/hospitals/${selectedHospital.id}/procedure_codes/${searchedProcedure.id}`)
@@ -21,7 +24,10 @@ const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals, setPric
         setSelectedInsuranceName(e.target.selectedOptions[0].text.toLowerCase().split(" ").join("_"))
     }
 
-
+    const handleClick = () => {
+        setPricingForEstimate(thisHospitalData)
+        navigate("/estimate")
+    }
 
     return (
         <div>
@@ -30,8 +36,6 @@ const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals, setPric
             <div>
                 Selected CPT Code/Procedure: {searchedProcedure.description} <br /><br />
 
-
-                If you do not have insurance, the cost of this procedure is listed as: ${parseFloat(thisHospitalData.discounted_cash_price).toFixed(2)}<br /><br />
 
                 Select your insurance: {
                     <select onChange={handleSelectedInsurance}>
@@ -46,13 +50,26 @@ const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals, setPric
                             )
                         }) : null}
                     </select>
-                }<br /><br />
+                }<br />
+
+                <div className="compare-results">
+                    If you do not have or are not using insurance, <br />the cost of this procedure at <br /> {selectedHospital?.hospital_system} <br /> is listed as:<br /> ${parseFloat(thisHospitalData.discounted_cash_price).toFixed(2)}
+                </div>
 
                 {!isNaN(selectedCost) && selectedCost >= 0 ?
 
-                    <div>Cost for this code at {selectedHospital?.hospital_system} is listed as: ${selectedCost} </div>
+                    <div className="compare-results">
+                        <div>
+                            The cost for this code at {selectedHospital?.hospital_system} with the insurance you've selected is listed as: <br /> ${selectedCost}
+                        </div>
+                        <div className='estimate-button' onClick={handleClick}>
+                            Estimate
+                        </div>
+                    </div>
                     :
-                    <div><small>Select an insurance above to see listed pricing data...</small></div>}
+                    <div><small>
+                        Select an insurance above to see listed pricing data...
+                    </small></div>}
 
                 <br /><br />
             </div>
@@ -60,10 +77,11 @@ const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals, setPric
             <div>
 
                 Compare to:
-                {nearbyHospitals.map((hospital) => {
+                {nearbyHospitals.filter((hospital) => hospital.hospital_system !== selectedHospital.hospital_system).map((hospital) => {
                     return (
                         <ResultCards
                             hospital={hospital}
+                            selectedHospital={selectedHospital}
                             searchedProcedure={searchedProcedure}
                             selectedCost={selectedCost}
                             selectedInsuranceName={selectedInsuranceName}

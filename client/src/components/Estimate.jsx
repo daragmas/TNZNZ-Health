@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Estimate = () => {
     const [copay, setCopay] = useState(null)
@@ -8,6 +9,8 @@ const Estimate = () => {
     const [outOfPocketMet, setOutOfPocketMet] = useState(null)
     const [userResult, setUserResult] = useState({})
     const [awaitingResult, setAwaitingResult] = useState(true)
+
+    const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault()
