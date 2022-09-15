@@ -3,11 +3,8 @@ import ResultCards from "./ResultCards"
 
 const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals }) => {
     const [thisHospitalData, setThisHospitalData] = useState({})
-    const [selectedCost, setSelectedCost] = useState('')
-    const [selectedInsurance, setSelectedInsurance] = useState(null)
-    const [selectedInuranceName, setSelectedInsuranceName] = useState('')
-
-    console.log('nearbyH', nearbyHospitals)
+    const [selectedCost, setSelectedCost] = useState(-1)
+    const [selectedInsuranceName, setSelectedInsuranceName] = useState('')
 
     const getResultInfo = async () => {
         let req = await fetch(`http://localhost:3000/pricings/hospitals/${selectedHospital.id}/procedure_codes/${searchedProcedure.id}`)
@@ -20,11 +17,11 @@ const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals }) => {
     }, [])
 
     const handleSelectedInsurance = (e) => {
-        setSelectedCost(e.target.value)
-        setSelectedInsurance(e.target.index)
-        console.log(e.target.index)
-        console.log(e.target.name)
+        setSelectedCost(parseFloat(e.target.value).toFixed(2))
+        setSelectedInsuranceName(e.target.selectedOptions[0].text.toLowerCase().split(" ").join("_"))
     }
+
+
 
     return (
         <div>
@@ -50,7 +47,14 @@ const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals }) => {
                         }) : null}
                     </select>
                 }<br /><br />
-                Cost for this code at {`${selectedHospital?.hospital_system}`} is probably going to be: ${selectedCost} <br /><br />
+
+                {!isNaN(selectedCost) && selectedCost >= 0 ?
+
+                    <div>Cost for this code at {selectedHospital?.hospital_system} is listed as: ${selectedCost} </div>
+                    :
+                    <div><small>Select an insurance above to see listed pricing data...</small></div>}
+
+                <br /><br />
             </div>
 
             <div>
@@ -58,8 +62,12 @@ const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals }) => {
                 Compare to:
                 {nearbyHospitals.map((hospital) => {
                     return (
-                        <ResultCards hospital={hospital} searchedProcedure={searchedProcedure} selectedCost={selectedCost}
-                            selectedInsurance={selectedInsurance} />
+                        <ResultCards
+                            hospital={hospital}
+                            searchedProcedure={searchedProcedure}
+                            selectedCost={selectedCost}
+                            selectedInsuranceName={selectedInsuranceName}
+                        />
                     )
                 })}
 

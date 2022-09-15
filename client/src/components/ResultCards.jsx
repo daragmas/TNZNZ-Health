@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 
-const ResultCards = ({ hospital, searchedProcedure, selectedCost, selectedInsurance }) => {
+const ResultCards = ({ hospital, searchedProcedure, selectedInsuranceName }) => {
 
     const [pricing, setPricing] = useState({})
-
 
     useEffect(() => {
         const getCompetingPrices = async () => {
@@ -15,8 +14,17 @@ const ResultCards = ({ hospital, searchedProcedure, selectedCost, selectedInsura
     }, [])
 
     return (
-        < div >
-            {hospital.hospital_system}: cash price ${pricing.discounted_cash_price}, price with selected insurer ${selectedInsurance}
+        < div className="compare-results">
+            {hospital.hospital_system}
+
+            <div>
+                Cash Price: <br />
+                ${parseFloat(pricing.discounted_cash_price).toFixed(2)}
+            </div>
+
+            {selectedInsuranceName ?
+                <div>Price With Selected Insurer: <br />
+                    ${parseFloat(pricing.insurances[selectedInsuranceName]).toFixed(2)} </div> : null}
         </div>
     )
 }
