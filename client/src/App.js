@@ -21,6 +21,12 @@ function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => { setIsSidebarOpen(prev => !prev) }
 
+  //User Creation
+  // const handleLoginSubmit = async (e, form) => {
+  //   e.preventDefault();
+  //   const data = {}
+  //   const inputContainers = document.body.getElementsByTagName('form')[0].getElementsByTagName("div");
+
 
 
   useEffect(() => {
@@ -62,10 +68,15 @@ function App() {
         />
         <Route
           path="/results"
-          element={<Results />}
+          element={<Results
+            searchedProcedure={searchedProcedure}
+            selectedHospital={selectedHospital}
+            nearbyHospitals={nearbyHospitals}
+          />}
         />
         <Route index element={<Home />} />
         <Route path="/search" element={
+
           <Search
             searchedProcedure={searchedProcedure}
             setSelectedHospital={setSelectedHospital}

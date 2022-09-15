@@ -39,6 +39,7 @@ const Search = ({
     }, []);
 
     //Listener Functions
+
     const handleChange = (value, setter) => {
         setter(value);
     };
@@ -153,37 +154,38 @@ const Search = ({
             <hr></hr>
 
             <h2>Common Categories</h2>
-            {common_categories?.map((category) => {
-                return (
-                    <div className="category-card">
-                        <h4
-                            id={category}
-                            onClick={(e) => handleChange(e.target.id, setSelectedCategory)}
-                        >
-                            {category}
-                        </h4>
-                        <div
-                            className="category-card-list-container"
-                            hidden={category === selectedCategory ? false : true}
-                        >
-                            <ul className="categord-card-list">
-                                {commonCodes?.map((code) =>
-                                    code.category == category ? (
-                                        <li
-                                            value={code.code}
-                                            onClick={(e) =>
-                                                handleChange(e.target.value, setSearchTerm)
-                                            }
-                                        >
-                                            {code.code}:{code.description}
-                                        </li>
-                                    ) : null
-                                )}
-                            </ul>
+            {
+                common_categories?.map((category) => {
+                    return (
+                        <div className="category-card">
+                            <h4
+                                id={category}
+                                onClick={(e) => handleChange(e.target.id, setSelectedCategory)}
+                            >
+                                {category}
+                            </h4>
+                            <div
+                                className="category-card-list-container"
+                                hidden={category === selectedCategory ? false : true}
+                            >
+                                <ul className="categord-card-list">
+                                    {commonCodes?.map((code) =>
+                                        code.category == category ? (
+                                            <li
+                                                value={code.code}
+                                                onClick={(e) =>
+                                                    handleChange(e.target.value, setSearchTerm)
+                                                }
+                                            >
+                                                {code.code}:{code.description}
+                                            </li>
+                                        ) : null
+                                    )}
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                );
-            })}
+                    );
+                })}
         </>
     );
 };
