@@ -31,7 +31,7 @@ const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals }) => {
                 Selected CPT Code/Procedure: {searchedProcedure.description} <br /><br />
 
 
-                If you do not have insurance, the cost of this procedure is listed as: ${thisHospitalData.discounted_cash_price}<br /><br />
+                If you do not have insurance, the cost of this procedure is listed as: ${parseFloat(thisHospitalData.discounted_cash_price).toFixed(2)}<br /><br />
 
                 Select your insurance: {
                     <select onChange={handleSelectedInsurance}>
