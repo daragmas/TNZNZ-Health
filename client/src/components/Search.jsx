@@ -38,7 +38,6 @@ const Search = ({
     //Setting up categories
     useEffect(() => {
         getData(setCommonCodes, "common_procedure_codes");
-        getData(setCategories, "categories");
     }, []);
 
     //Listener Functions
