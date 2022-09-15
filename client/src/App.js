@@ -46,7 +46,7 @@ function App() {
   const [selectedHospital, setSelectedHospital] = useState()
   // console.log('nearby', nearbyHospitals)
 
-  console.log("Searched Procedure: ", searchedProcedure)
+  console.log("Searched Procedure: ", searchedProcedure.id)
 
   //Returned Component
   return (

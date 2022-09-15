@@ -48,7 +48,6 @@ const Search = ({
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(searchTerm);
         //TODO: Replace with remote database URL
         const req = await fetch(
             `http://localhost:3000/procedure_codes/by_code/${searchTerm}`,
@@ -75,6 +74,18 @@ const Search = ({
         );
         const res = await req.json();
         // console.log("res2", res);
+        if (searchedProcedure.id === undefined) {
+            const _req = await fetch(
+                `http://localhost:3000/procedure_codes/by_code/${searchTerm}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get("token")}`,
+                    },
+                }
+            );
+            const _res = await _req.json();
+            setSearchedProcedure(_res);
+        }
         setNearbyHospitals(res);
     };
 
