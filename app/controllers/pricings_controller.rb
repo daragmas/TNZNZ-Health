@@ -1,5 +1,6 @@
 class PricingsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_404
+    skip_before_action :authorized
     def index
         pricings = Pricing.all
         render json: pricings

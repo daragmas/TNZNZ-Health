@@ -1,6 +1,6 @@
 class CommonProcedureCodesController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_404
-
+    skip_before_action :authorized
     def index
         common_procedure_codes = CommonProcedureCode.all
         render json: common_procedure_codes

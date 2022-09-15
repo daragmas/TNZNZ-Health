@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+    skip_before_action :authorized
     rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
     def index

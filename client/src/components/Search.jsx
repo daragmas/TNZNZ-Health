@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import CategoryCard from "./CategoryCard";
 import HostpitalList from "./HospitalList";
 import ProcedureInfo from "./ProcedureInfo";
-
+import { useSelector } from 'react-redux'
 const Search = ({
     searchedProcedure,
     setSelectedHospital,
@@ -15,7 +15,8 @@ const Search = ({
 
     //Setting up redirect
     let navigate = useNavigate();
-
+    let user = useSelector(state => state.user.value)
+    console.log(user.zip_code)
     //User Input
     const [searchTerm, setSearchTerm] = useState("");
     const [searchZip, setSearchZip] = useState("");
@@ -24,6 +25,9 @@ const Search = ({
     //Server Responses
     const [commonCodes, setCommonCodes] = useState([])
 
+    useEffect(() => {
+        setSearchZip(user.zip_code)
+    }, [user])
     const getData = async (setter, route) => {
         // console.log("token", Cookies.get("token"));
         const req = await fetch(`http://localhost:3000/${route}`, {
@@ -122,6 +126,7 @@ const Search = ({
             <label htmlFor="zip-entry">Zip Code</label>
             <form id="zip-entry" onSubmit={handleZipSubmit}>
                 <input
+                    value={searchZip}
                     type="text"
                     onChange={(e) => handleChange(e.target.value, setSearchZip)}
                 />
@@ -142,6 +147,7 @@ const Search = ({
                     setSelectedCategory={setSelectedCategory}
                     handleChange={handleChange}
                     setSearchTerm={setSearchTerm}
+                    key={category}
                 />)}
         </>
     );
