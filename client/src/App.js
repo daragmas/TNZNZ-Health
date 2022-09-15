@@ -44,7 +44,6 @@ function App() {
   //Returned Component
   return (
     <div className="App">
-      <Estimate />
       <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
       <Navbar toggleSidebar={toggleSidebar} />
       <Routes>
