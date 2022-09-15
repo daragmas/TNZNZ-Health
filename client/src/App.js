@@ -16,6 +16,8 @@ import LoginForm from './components/Auth/LoginForm';
 import RegisterForm from './components/Auth/RegisterForm';
 import Results from './components/Results';
 
+import Estimate from './components/Estimate';
+
 function App() {
   const dispatch = useDispatch();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -42,7 +44,7 @@ function App() {
   //Returned Component
   return (
     <div className="App">
-
+      <Estimate />
       <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
       <Navbar toggleSidebar={toggleSidebar} />
       <Routes>
