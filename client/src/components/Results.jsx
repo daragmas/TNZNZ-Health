@@ -51,7 +51,12 @@ const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals }) => {
                 {!isNaN(selectedCost) && selectedCost >= 0 ?
 
                     <div className="compare-results">
-                        The cost for this code at {selectedHospital?.hospital_system} with the insurance you've selected is listed as: <br /> ${selectedCost}
+                        <div>
+                            The cost for this code at {selectedHospital?.hospital_system} with the insurance you've selected is listed as: <br /> ${selectedCost}
+                        </div>
+                        <div className='estimate-button'>
+                            Estimate
+                        </div>
                     </div>
                     :
                     <div><small>
