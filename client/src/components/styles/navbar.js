@@ -5,7 +5,9 @@ export const Nav = styled.nav`
     
     height: 90px;
     font-size: 1rem;
-    /* position: fixed; */
+    position: sticky;
+    top: 0;
+    z-index: +1;
     /* border-bottom: 1px solid black; */
     `
 export const NavbarContainer = styled.div`

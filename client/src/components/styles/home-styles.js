@@ -1,13 +1,17 @@
 import styled from 'styled-components'
 
 export const HomeContainer = styled.div`
-        position: relative;
-      background-color: #ccc;
+        /* position: relative; */
+        display: grid;
+      background-color: #eee;
       width: 50vw;
       transform: translate(10vw);
       border-radius:10px;
       padding: 10px;
-      margin: 20px;
+      margin-bottom: 20px;
+      margin-left: 50%;
+      transform: translate(-50%);
+      
 
 `
 

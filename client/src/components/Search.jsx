@@ -12,7 +12,7 @@ const Search = ({
     nearbyHospitals,
     setNearbyHospitals,
 }) => {
-    
+
     //Setting up redirect
     let navigate = useNavigate();
 
@@ -99,7 +99,7 @@ const Search = ({
 
     let common_categories = [];
 
-    commonCodes?.map((code) =>
+    commonCodes.map((code) =>
         common_categories.includes(code.category)
             ? null
             : common_categories.push(code.category)

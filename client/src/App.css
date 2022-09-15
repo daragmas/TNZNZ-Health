@@ -25,18 +25,20 @@
   padding: 3em;
 }
 
+/* .homepage {} */
+
 .title-container {
   /* place-items: center; */
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .title {
   animation: fade .3s ease-in;
   font-size: 10em;
+  padding-bottom: 90px;
 }
 
 .Video {

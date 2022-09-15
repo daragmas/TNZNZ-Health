@@ -7,44 +7,45 @@ import DocPic from './media/docPic.jpg'
 const Home = () => {
     return (
         <div >
-            <video
-                className='Video'
-                autoPlay
-                loop
-                muted
-            >
-                <source src={dust} type='video/mp4' />
-            </video>
-
-            <div >
-                <div >
-                    <div className="title-container">
-                        <div className="title">
-                            TranspareNZ
-                        </div>
+            <div>
+                <video
+                    className='Video'
+                    autoPlay
+                    loop
+                    muted
+                >
+                    <source src={dust} type='video/mp4' />
+                </video>
+            </div>
+            <div className="homepage">
+                {/* <div > */}
+                <div className="title-container">
+                    <div className="title">
+                        TranspareNZ
                     </div>
-
-
-                    <HomeContainer>
-
-                        <div>
-                            <Text>What We Do:</Text>
-                            <Text>TNZNZ Health is in the business of providing accurate data to YOU. If you are uninsured or underinsured or just need to have a better understanding of medical billing, we're here to help. Below, you can search based on your providers advice to find the best pricing for similar procedures at the hospitals in your area.</Text>
-
-                            <Disclaimer>Disclaimer: if you are experiencing a medical emergency, dial 911 or seek help immediately</Disclaimer>
-
-                            <Disclaimer>Disclaimer: no information provided here is guaranteed, this service exists to provide estimates of medical costs and assist in the effort at reducing avoidable medical debt</Disclaimer>
-
-                        </div>
-                    </HomeContainer >
                 </div>
+
+
+                <HomeContainer>
+
+
+                    <Text>What We Do:</Text>
+                    <Text>TNZNZ Health is in the business of providing accurate data to YOU. If you are uninsured or underinsured or just need to have a better understanding of medical billing, we're here to help. Below, you can search based on your providers advice to find the best pricing for similar procedures at the hospitals in your area.</Text>
+
+                    <Disclaimer>Disclaimer: if you are experiencing a medical emergency, dial 911 or seek help immediately</Disclaimer>
+
+                    <Disclaimer>Disclaimer: no information provided here is guaranteed, this service exists to provide estimates of medical costs and assist in the effort at reducing avoidable medical debt</Disclaimer>
+
+
+                </HomeContainer >
+                {/* </div> */}
 
             </div>
 
 
 
 
-            <div style={{ display: 'flex', gap: '15em', marginLeft: '14%' }}>
+            <div>
                 <HomeContainer>
                     <Text>
                         Currently, TNZNZ Health is able to provide accurate data on medical pricing for some of the largest hospital systems in the New York Metropolitan area. TNZNZ is hoping to expand its services and grow its database to continually provide you with the best experience possible
