@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
     skip_before_action :verify_authenticity_token
 
-    # before_action :authorized
+    before_action :authorized
 
     rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
     rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
@@ -34,10 +34,10 @@ class ApplicationController < ActionController::Base
         !!current_user
     end
     def authorized
-        render json: {errors: ['Please log in']}, status: :unauthorized unless logged_in?
+        render json: {errors: 'Please log in'}, status: :unauthorized unless logged_in?
     end
 
-    def render_unprocessable_entity(e)
+    def render_record_invalid(e)
         render json: {errors: e.record.errors.full_messages}, status: :unprocessable_entity
     end
     def render_record_not_found(e)

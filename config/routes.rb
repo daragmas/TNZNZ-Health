@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  
   post '/login', to: 'auth#create'
   post '/register', to: 'users#create'
   get '/me', to: 'auth#show'
@@ -23,5 +20,9 @@ Rails.application.routes.draw do
 
   get '/procedure_codes/by_code/:code/cost', to: 'procedure_codes#show_with_cost_by_code'
   get '/procedure_codes/by_code/:code/cost/hospitals/:hospital_id', to: 'procedure_codes#show_with_cost_by_code_at_hospital'
+
+  get '/pricings/hospitals/:hospital_id/procedure_codes/:procedure_code_id', to: 'pricings#show_pricing_by_hospital_and_procedure'
+
+  get '/hospitals/nearby/:zip', to: 'hospitals#nearby'
 
 end

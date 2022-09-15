@@ -10,6 +10,13 @@ class HospitalsController < ApplicationController
         render json: hospital
     end
 
+    def nearby
+        zip_geocode_data = Geocoder.search(params[:zip]).first.data
+        zip_lat_lon = [zip_geocode_data["lat"], zip_geocode_data["lon"]]
+        nearby_hospitals = Hospital.near(zip_lat_lon)
+        render json: nearby_hospitals
+    end
+
     private
 
     def render_404

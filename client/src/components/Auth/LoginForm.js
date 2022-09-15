@@ -24,6 +24,7 @@ const LoginForm = () => {
     username: "",
     password: ""
   });
+  const [errors, setErrors] = useState(null)
   if (user.id) {
     return <Navigate to="/" replace />;
   }
@@ -31,9 +32,9 @@ const LoginForm = () => {
   const handleChange = (e) => {
     setFormData({...formData, [e.target.name] : e.target.value})
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch("http://127.0.0.1:3000/login", {
+    const req = await fetch("http://127.0.0.1:3000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,19 +42,23 @@ const LoginForm = () => {
       },
       body: JSON.stringify(formData),
     })
-      .then((r) => r.json())
-      .then((user) => {
-          Cookies.set("token", user.token)
-        dispatch(
-          login({
-            id: user.user.id,
-            username: user.user.username,
-            email: user.user.email,
-          })
-        );
-    });
+    const data = await req.json()
+      
+    if (req.ok) {
+      console.log("user", data);
+      console.log("token", data.token);
+      Cookies.set("token", data.token);
+      dispatch(
+        login({
+          id: data.user.id,
+          username: data.user.username,
+          email: data.user.email,
+        })
+      );
+    } else {
+      setErrors(data.errors[0])
+    }
   };
-  
   return (
     <FormWrapper>
       <FormTitle>Login</FormTitle>
@@ -68,6 +73,7 @@ const LoginForm = () => {
         </InputContainer>
 
         <SubmitButton type="submit" />
+        {errors}
       </FormContainer>
     </FormWrapper>
   );

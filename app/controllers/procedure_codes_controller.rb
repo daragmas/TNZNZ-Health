@@ -36,6 +36,7 @@ class ProcedureCodesController < ApplicationController
         render json: procedure_code, serializer: ProcedureCodeCostHospitalSerializer, hospital_id: params[:hospital_id]
     end
 
+
     private
 
     def render_404

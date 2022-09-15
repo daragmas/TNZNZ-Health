@@ -23,29 +23,31 @@ const RegisterForm = () => {
     password: "",
     password_confirmation: "",
   });
+  const [errors, setErrors] = useState(null)
   if (user.id) {
     return <Navigate to="/" replace />;
   }
   const handleChange = (e) => {
     setFormData({...formData, [e.target.name]:e.target.value})
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    fetch("http://127.0.0.1:3000/register", {
+    const req = await fetch("http://127.0.0.1:3000/register", {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
       body: JSON.stringify(formData),
     })
-      .then((r) => r.json())
-      .then((data) => {
-        Cookies.set('token', data.token)
-        dispatch(login({id: data.user.id, username: data.user.username, email: data.user.email}))
-      });
+    const data = await req.json();
+    if (req.ok) {
+      Cookies.set('token', data.token)
+      dispatch(login({id: data.user.id, username: data.user.username, email: data.user.email}))
+    } else {
+      setErrors(data.errors)
+    }
   };
 
   
@@ -78,6 +80,7 @@ const RegisterForm = () => {
             />
           </InputContainer>
           <SubmitButton type="submit" />
+          {errors}
         </FormContainer>
       </FormWrapper>
     );
