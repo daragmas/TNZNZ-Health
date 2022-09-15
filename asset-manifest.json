@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/transparenz.duckdns.org/static/css/main.d53589b3.css",
-    "main.js": "/transparenz.duckdns.org/static/js/main.600a22f0.js",
-    "static/media/ekg.mp4": "/transparenz.duckdns.org/static/media/ekg.2a68293e62ea3ded1974.mp4",
-    "static/media/docPic.jpg": "/transparenz.duckdns.org/static/media/docPic.1f202188beb5f096e64f.jpg",
-    "index.html": "/transparenz.duckdns.org/index.html",
-    "main.d53589b3.css.map": "/transparenz.duckdns.org/static/css/main.d53589b3.css.map",
-    "main.600a22f0.js.map": "/transparenz.duckdns.org/static/js/main.600a22f0.js.map"
+    "main.css": "/TNZNZ-Health/static/css/main.d53589b3.css",
+    "main.js": "/TNZNZ-Health/static/js/main.0fb1a3a0.js",
+    "static/media/ekg.mp4": "/TNZNZ-Health/static/media/ekg.2a68293e62ea3ded1974.mp4",
+    "static/media/docPic.jpg": "/TNZNZ-Health/static/media/docPic.1f202188beb5f096e64f.jpg",
+    "index.html": "/TNZNZ-Health/index.html",
+    "main.d53589b3.css.map": "/TNZNZ-Health/static/css/main.d53589b3.css.map",
+    "main.0fb1a3a0.js.map": "/TNZNZ-Health/static/js/main.0fb1a3a0.js.map"
   },
   "entrypoints": [
     "static/css/main.d53589b3.css",
-    "static/js/main.600a22f0.js"
+    "static/js/main.0fb1a3a0.js"
   ]
 }
