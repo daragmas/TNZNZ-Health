@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import ResultCards from "./ResultCards"
 
-const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals }) => {
+const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals, setPricingForEstimate }) => {
     const [thisHospitalData, setThisHospitalData] = useState({})
     const [selectedCost, setSelectedCost] = useState(-1)
     const [selectedInsuranceName, setSelectedInsuranceName] = useState('')
@@ -67,6 +67,7 @@ const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals }) => {
                             searchedProcedure={searchedProcedure}
                             selectedCost={selectedCost}
                             selectedInsuranceName={selectedInsuranceName}
+                            setPricingForEstimate={setPricingForEstimate}
                         />
                     )
                 })}

@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const ResultCards = ({ hospital, searchedProcedure, selectedInsuranceName }) => {
+const ResultCards = ({ hospital, searchedProcedure, selectedInsuranceName, setPricingForEstimate }) => {
 
     const [pricing, setPricing] = useState({})
+    const navigate = useNavigate()
 
     useEffect(() => {
         const getCompetingPrices = async () => {
@@ -12,6 +14,11 @@ const ResultCards = ({ hospital, searchedProcedure, selectedInsuranceName }) => 
         }
         getCompetingPrices()
     }, [])
+
+    const handleClick = () => {
+        setPricingForEstimate(pricing)
+        navigate("/estimate")
+    }
 
     return (
         < div className="compare-results">
@@ -25,6 +32,10 @@ const ResultCards = ({ hospital, searchedProcedure, selectedInsuranceName }) => 
             {selectedInsuranceName ?
                 <div>Price With Selected Insurer: <br />
                     ${parseFloat(pricing.insurances[selectedInsuranceName]).toFixed(2)} </div> : null}
+            {selectedInsuranceName ?
+                <div className='estimate-button' onClick={handleClick}>
+                    Estimate
+                </div> : null}
         </div>
     )
 }

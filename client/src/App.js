@@ -22,6 +22,7 @@ function App() {
   const dispatch = useDispatch();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => { setIsSidebarOpen(prev => !prev) }
+  const [pricingForEstimate, setPricingForEstimate] = useState({})
 
   //User Creation
   // const handleLoginSubmit = async (e, form) => {
@@ -74,6 +75,7 @@ function App() {
             searchedProcedure={searchedProcedure}
             selectedHospital={selectedHospital}
             nearbyHospitals={nearbyHospitals}
+            setPricingForEstimate={setPricingForEstimate}
           />}
         />
         <Route index element={<Home />} />
@@ -85,6 +87,12 @@ function App() {
             setSearchedProcedure={setSearchedProcedure}
             setNearbyHospitals={setNearbyHospitals}
             nearbyHospitals={nearbyHospitals} />} />
+        <Route
+          path="/estimate"
+          element={<Estimate
+            pricingForEstimate={pricingForEstimate}
+          />}
+        />
       </Routes >
     </div >
   );
