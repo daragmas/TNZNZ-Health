@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/www.transparenz.com/static/css/main.d53589b3.css",
-    "main.js": "/www.transparenz.com/static/js/main.2fd89abe.js",
-    "static/media/ekg.mp4": "/www.transparenz.com/static/media/ekg.2a68293e62ea3ded1974.mp4",
-    "static/media/docPic.jpg": "/www.transparenz.com/static/media/docPic.1f202188beb5f096e64f.jpg",
-    "index.html": "/www.transparenz.com/index.html",
-    "main.d53589b3.css.map": "/www.transparenz.com/static/css/main.d53589b3.css.map",
-    "main.2fd89abe.js.map": "/www.transparenz.com/static/js/main.2fd89abe.js.map"
+    "main.css": "/transparenz.duckdns.org/static/css/main.d53589b3.css",
+    "main.js": "/transparenz.duckdns.org/static/js/main.600a22f0.js",
+    "static/media/ekg.mp4": "/transparenz.duckdns.org/static/media/ekg.2a68293e62ea3ded1974.mp4",
+    "static/media/docPic.jpg": "/transparenz.duckdns.org/static/media/docPic.1f202188beb5f096e64f.jpg",
+    "index.html": "/transparenz.duckdns.org/index.html",
+    "main.d53589b3.css.map": "/transparenz.duckdns.org/static/css/main.d53589b3.css.map",
+    "main.600a22f0.js.map": "/transparenz.duckdns.org/static/js/main.600a22f0.js.map"
   },
   "entrypoints": [
     "static/css/main.d53589b3.css",
-    "static/js/main.2fd89abe.js"
+    "static/js/main.600a22f0.js"
   ]
 }
