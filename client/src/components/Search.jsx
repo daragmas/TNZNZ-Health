@@ -25,7 +25,7 @@ const Search = ({
     const [commonCodes, setCommonCodes] = useState([])
 
     const getData = async (setter, route) => {
-        console.log("token", Cookies.get("token"));
+        // console.log("token", Cookies.get("token"));
         const req = await fetch(`http://localhost:3000/${route}`, {
             headers: {
                 Authorization: `Bearer ${Cookies.get("token")}`,
