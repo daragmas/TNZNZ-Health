@@ -22,9 +22,10 @@ const RegisterForm = () => {
     email: "",
     password: "",
     password_confirmation: "",
+    zip_code: ""
   });
   const [errors, setErrors] = useState(null)
-  if (user.id) {
+  if (user.username) {
     return <Navigate to="/" replace />;
   }
   const handleChange = (e) => {
@@ -44,46 +45,63 @@ const RegisterForm = () => {
     const data = await req.json();
     if (req.ok) {
       Cookies.set('token', data.token)
-      dispatch(login({id: data.user.id, username: data.user.username, email: data.user.email}))
+      dispatch(login(data.user));
     } else {
       setErrors(data.errors)
     }
   };
 
-  
-    return (
-      <FormWrapper>
-        <FormTitle>Register</FormTitle>
-        <FormContainer onSubmit={handleSubmit}>
-          <InputContainer>
-            <Label>Username</Label>
-            <TextInput onChange={handleChange} name="username" type="text" />
-          </InputContainer>
-          <InputContainer>
-            <Label>Email</Label>
-            <TextInput onChange={handleChange} name="email" type="email" />
-          </InputContainer>
-          <InputContainer>
-            <Label>Password</Label>
-            <TextInput
-              onChange={handleChange}
-              name="password"
-              type="password"
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>Password Confirmation</Label>
-            <TextInput
-              onChange={handleChange}
-              name="password_confirmation"
-              type="password"
-            />
-          </InputContainer>
-          <SubmitButton type="submit" />
-          {errors}
-        </FormContainer>
-      </FormWrapper>
-    );
+  return (
+    <FormWrapper>
+      <FormTitle>Register</FormTitle>
+      <FormContainer onSubmit={handleSubmit}>
+        <InputContainer>
+          <Label>Username</Label>
+          <TextInput
+            required
+            name="username"
+            type="text"
+            onChange={handleChange}
+          />
+        </InputContainer>
+        <InputContainer>
+          <Label>Email</Label>
+          <TextInput name="email" type="email" onChange={handleChange} />
+        </InputContainer>
+        <InputContainer>
+          <Label>Password</Label>
+          <TextInput
+            required
+            name="password"
+            type="password"
+            onChange={handleChange}
+          />
+        </InputContainer>
+        <InputContainer>
+          <Label>Password Confirmation</Label>
+          <TextInput
+            required
+            name="password_confirmation"
+            type="password"
+            onChange={handleChange}
+          />
+        </InputContainer>
+        <InputContainer>
+          <Label>Zip Code</Label>
+          <TextInput
+            name="zip_code"
+            type="text"
+            minLength={5}
+            maxLength={9}
+            onChange={handleChange}
+          />
+        </InputContainer>
+        <SubmitButton type="submit" />
+        {errors && errors.map(e => <p key={e}>{e}</p>)}
+      </FormContainer>
+    </FormWrapper>
+  );
+
 };
 
 export default RegisterForm;
