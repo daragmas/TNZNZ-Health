@@ -35,7 +35,7 @@ function App() {
   const [searchedProcedure, setSearchedProcedure] = useState({})
   const [nearbyHospitals, setNearbyHospitals] = useState([])
   const [selectedHospital, setSelectedHospital] = useState()
-  console.log('nearby', nearbyHospitals)
+  // console.log('nearby', nearbyHospitals)
 
 
 
