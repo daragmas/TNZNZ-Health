@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   post '/login', to: 'auth#create'
   post '/register', to: 'users#create'
   get '/me', to: 'auth#show'
+  patch '/users/:id', to: 'users#update'
 
 
   resources :pricings, only: [:index, :show] 

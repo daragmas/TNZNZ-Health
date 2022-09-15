@@ -17,6 +17,7 @@ import RegisterForm from './components/Auth/RegisterForm';
 import Results from './components/Results';
 
 import Estimate from './components/Estimate';
+import Profile from './components/Profile';
 
 function App() {
   const dispatch = useDispatch();
@@ -33,13 +34,20 @@ function App() {
 
 
   useEffect(() => {
-    fetch("http://127.0.0.1:3000/me", {
-      headers: {
-        Authorization: `Bearer ${Cookies.get('token')}`,
-      },
-    })
-      .then((r) => r.json())
-      .then((data) => dispatch(login({ id: data.id, email: data.email, username: data.username })));
+    const getUser = async () => {
+      const req= await fetch("http://127.0.0.1:3000/me", {
+        headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`,
+        },
+      })
+      if (req.ok) {
+        const data = await req.json()
+        dispatch(login({id: data.id,  username: data.username, email: data.email, zip_code: data.zip_code }))
+      } 
+
+    }
+    getUser()
+      
   }, [])
 
   const [searchedProcedure, setSearchedProcedure] = useState({})
@@ -79,6 +87,7 @@ function App() {
           />}
         />
         <Route index element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/search" element={
 
           <Search
