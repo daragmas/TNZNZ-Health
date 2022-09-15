@@ -48,7 +48,6 @@ function App() {
       <Navbar toggleSidebar={toggleSidebar} />
       <Routes>
         {/* Add routes here */}
-        <Route path="/search" element={<Search />} />
         <Route
           path="/login"
           element={
