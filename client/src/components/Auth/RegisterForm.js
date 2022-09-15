@@ -18,6 +18,7 @@ const RegisterForm = () => {
     email: "",
     password: "",
     password_confirmation: "",
+    zip_code: ""
   });
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,7 +26,6 @@ const RegisterForm = () => {
     console.log("data", data);
     fetch("http://127.0.0.1:3000/register", {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -42,7 +42,7 @@ const RegisterForm = () => {
       <FormContainer onSubmit={handleSubmit} ref={form}>
         <InputContainer>
           <Label>Username</Label>
-          <TextInput name="username" type="text" ref={form.username} />
+          <TextInput required name="username" type="text" ref={form.username} />
         </InputContainer>
         <InputContainer>
           <Label>Email</Label>
@@ -50,13 +50,29 @@ const RegisterForm = () => {
         </InputContainer>
         <InputContainer>
           <Label>Password</Label>
-          <TextInput name="password" type="password" ref={form.password} />
+          <TextInput
+            required
+            name="password"
+            type="password"
+            ref={form.password}
+          />
         </InputContainer>
         <InputContainer>
           <Label>Password Confirmation</Label>
           <TextInput
+            required
             name="password_confirmation"
             type="password"
+            ref={form.password_confirmation}
+          />
+        </InputContainer>
+        <InputContainer>
+          <Label>Zip Code</Label>
+          <TextInput
+            name="zip_code"
+            type="text"
+            minLength={5}
+            maxLength={9}
             ref={form.password_confirmation}
           />
         </InputContainer>

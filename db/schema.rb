@@ -10,17 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_12_203316) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_15_174049) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "common_procedure_codes", force: :cascade do |t|
     t.string "code"
     t.string "description"
-    t.string "category"
     t.boolean "common_procedure?"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "category_id"
   end
 
   create_table "hospitals", force: :cascade do |t|
@@ -29,6 +35,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_203316) do
     t.string "transparency_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "latitude"
+    t.float "longitude"
   end
 
   create_table "pricings", force: :cascade do |t|
@@ -83,10 +91,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_203316) do
   create_table "procedure_codes", force: :cascade do |t|
     t.string "code"
     t.string "description"
-    t.string "category"
     t.boolean "common_procedure?"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "category_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -95,6 +103,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_203316) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "zip_code"
   end
 
 end
