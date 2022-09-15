@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const HomeContainer = styled.div`
         position: relative;
-      background-color: rgb(233, 218, 193);
+      background-color: #ccc;
       width: 50vw;
       transform: translate(10vw);
       border-radius:10px;
@@ -21,7 +21,7 @@ export const Text = styled.h1`
 
 export const Disclaimer = styled.p`
     color: red;
-    font-size:1em;
+    font-size:1.1em;
 `
 
 export const Button = styled.button`
@@ -52,7 +52,7 @@ export const Image = styled.img`
 export const Footer = styled.div`
     width: auto;
     height: auto;
-    background-color:rgb(233, 218, 193);
+    background-color: #ccc;
     bottom: 0;
    /* transform: translate(10vw); */
 `

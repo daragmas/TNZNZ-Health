@@ -5,12 +5,13 @@ export const Nav = styled.nav`
     
     height: 90px;
     font-size: 1rem;
-    border-bottom: 1px solid black;
-`
+    /* position: fixed; */
+    /* border-bottom: 1px solid black; */
+    `
 export const NavbarContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+display: flex;
+align-items: center;
+justify-content: space-around;
     font-size: 1.8em;
     z-index: 1;
     padding: 0 24px;
