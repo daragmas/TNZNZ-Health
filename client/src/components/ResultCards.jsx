@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const ResultCards = ({ hospital, searchedProcedure, selectedInsuranceName }) => {
+const ResultCards = ({ hospital, searchedProcedure, selectedInsuranceName, selectedHospital }) => {
 
     const [pricing, setPricing] = useState({})
 
@@ -13,7 +13,15 @@ const ResultCards = ({ hospital, searchedProcedure, selectedInsuranceName }) => 
         getCompetingPrices()
     }, [])
 
+    // console.log(pricing.hospital.hospital_system)
+    // console.log(hospital.hospital_system)
+    console.log(selectedHospital.hospital_system)
+
+    // hospital.hospital_system ? hospital.hospital_system !==  selectedHospital.hospital_system
+
+
     return (
+
         < div className="compare-results">
             {hospital.hospital_system}
 
