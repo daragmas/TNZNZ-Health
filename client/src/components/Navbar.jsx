@@ -1,5 +1,5 @@
 
-import { Nav, NavbarContainer, NavItem, NavLogo, NavLoginContainer, NavLoginItem, MobileIcon } from "./styles/navbar";
+import { Nav, NavbarContainer, NavItem, NavLogo, NavLoginContainer, NavLoginItem,NavLogoutBtn, MobileIcon } from "./styles/navbar";
 import { FaBars } from 'react-icons/fa'
 import { useSelector} from 'react-redux'
 import { useDispatch } from 'react-redux'
@@ -27,14 +27,14 @@ const Navbar = ({ toggleSidebar }) => {
               {user.username ? (
                 <>
                   <div>Welome, {user.username}</div>
-                  <button
+                  <NavLogoutBtn
                     onClick={() => {
                       Cookies.remove("token");
-                      dispatch(login({ id: -1, username: "", email: "" }));
+                      dispatch(login({}));
                     }}
                   >
                     Logout
-                  </button>
+                  </NavLogoutBtn>
                 </>
               ) : (
                 <>

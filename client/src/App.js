@@ -14,33 +14,47 @@ import Search from "./components/Search";
 import Home from './components/Home'
 import LoginForm from './components/Auth/LoginForm';
 import RegisterForm from './components/Auth/RegisterForm';
+import Results from './components/Results';
 
+import Estimate from './components/Estimate';
 
 function App() {
   const dispatch = useDispatch();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const toggleSidebar = () => {setIsSidebarOpen(prev => !prev)}
-  
-  
+  const toggleSidebar = () => { setIsSidebarOpen(prev => !prev) }
 
-  useEffect(()=>{
+  //User Creation
+  // const handleLoginSubmit = async (e, form) => {
+  //   e.preventDefault();
+  //   const data = {}
+  //   const inputContainers = document.body.getElementsByTagName('form')[0].getElementsByTagName("div");
+
+
+
+  useEffect(() => {
     fetch("http://127.0.0.1:3000/me", {
       headers: {
         Authorization: `Bearer ${Cookies.get('token')}`,
       },
     })
       .then((r) => r.json())
-      .then((data) => dispatch(login({id: data.id,email: data.email, username: data.username})));
-  },[])
+      .then((data) => dispatch(login({ id: data.id, email: data.email, username: data.username })));
+  }, [])
 
+  const [searchedProcedure, setSearchedProcedure] = useState({})
+  const [nearbyHospitals, setNearbyHospitals] = useState([])
+  const [selectedHospital, setSelectedHospital] = useState()
+  // console.log('nearby', nearbyHospitals)
+
+  // console.log("Searched Procedure: ", searchedProcedure.id)
+
+  //Returned Component
   return (
     <div className="App">
-
       <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
       <Navbar toggleSidebar={toggleSidebar} />
       <Routes>
         {/* Add routes here */}
-        <Route path="/search" element={<Search />} />
         <Route
           path="/login"
           element={
@@ -52,10 +66,25 @@ function App() {
           element={
             <RegisterForm />
           }
-          
+
+        />
+        <Route
+          path="/results"
+          element={<Results
+            searchedProcedure={searchedProcedure}
+            selectedHospital={selectedHospital}
+            nearbyHospitals={nearbyHospitals}
+          />}
         />
         <Route index element={<Home />} />
-        <Route path="/search" element={<Search />} />
+        <Route path="/search" element={
+
+          <Search
+            searchedProcedure={searchedProcedure}
+            setSelectedHospital={setSelectedHospital}
+            setSearchedProcedure={setSearchedProcedure}
+            setNearbyHospitals={setNearbyHospitals}
+            nearbyHospitals={nearbyHospitals} />} />
       </Routes >
     </div >
   );

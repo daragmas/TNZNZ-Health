@@ -5,6 +5,7 @@ export const Nav = styled.nav`
     
     height: 90px;
     font-size: 1rem;
+    border-bottom: 1px solid black;
 `
 export const NavbarContainer = styled.div`
     display: flex;
@@ -35,7 +36,7 @@ export const NavLogo = styled.div`
     background-image: url(${props => props.image});
     background-repeat: no-repeat;
     width: 100px;
-    height: 90px;
+    height: 80px;
     border-radius: 24px;
     margin-top: 5px;
     margin-left: 2em;
@@ -56,4 +57,10 @@ export const NavLoginItem = styled(NavLink)`
     text-decoration: none;
     color:inherit;
 `;
+export const NavLogoutBtn = styled.button`
+    border:none;
+    cursor: pointer;
+    background:transparent;
+    font-size: 1em;
+`
 

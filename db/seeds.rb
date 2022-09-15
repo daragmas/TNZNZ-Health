@@ -20,6 +20,93 @@ puts "seeding hospitals"
 h1 = Hospital.create!(hospital_system: "New York Presbyterian Hospital", address: "170 William St, New York, NY 10038", transparency_link: "https://www.nyp.org/patients-visitors/paying-for-care/hospital-price-transparency")
 h2 = Hospital.create!(hospital_system: "St. Flat's Hospital", address: "11 Broadway, New York, NY 10004", transparency_link: "https://flatironschool.com/")
 
+puts "seeding categories"
+
+categories = [
+    "Diagnostic",
+    "Diagnostic X-Ray",
+    "MRI/CAT Scan",
+    "Mammography",
+    "Outpatient Surgery",
+    "Ultrasound",
+    "Physical Therapy",
+    "Occupational Therapy",
+    "Primary Care",
+    "Preventative Care",
+    "Mental Health",
+    'COVID Vaccinations',
+    'Ambulance and Other Transport Services and Supplies',
+    'Matrix for Wound Management (Placental, Equine, Synthetic)',
+    'Skin Substitute Device',
+    'Medical And Surgical Supplies',
+    'Administrative, Miscellaneous and Investigational',
+    'Enteral and Parenteral Therapy',
+    'Other Therapeutic Procedures',
+    'Hospital Outpatient Services',
+    'Dental Procedures',
+    'Durable Medical Equipment',
+    'Procedures / Professional Services',
+    'Alcohol and Drug Abuse Treatment',
+    'Drugs Administered Other than Oral Method',
+    'Chemotherapy Drugs',
+    'Durable medical equipment (DME) Medicare administrative contractors (MACs)',
+    'Components, Accessories and Supplies',
+    'Orthotic Procedures and services',
+    'Prosthetic Procedures',
+    'Miscellaneous Medical Services',
+    'Screening Procedures',
+    'Other Services',
+    'Pathology and Laboratory Services',
+    'Temporary Codes',
+    'Diagnostic Radiology Services',
+    'Temporary National Codes (Non-Medicare)',
+    'National Codes Established for State Medicaid Agencies',
+    'Coronavirus Diagnostic Panel',
+    'Vision Services',
+    'Hearing Services',
+    'Evaluation & Management',
+    'Anesthesia',
+    'Surgery',
+    'Diagnostic Radiology',
+    'Radiation Oncology',
+    'Nuclear Medicine',
+    'Pathology and Laboratory Services',
+    'Immune Globulins, Serum or Recombinant Prods',
+    'Immunizations and Vaccinations',
+    'Psychiatry',
+    'Biofeedback',
+    'Dialysis',
+    'Gastroenterology',
+    'Ophthalmology',
+    'Special Otorhinolaryngologic Services',
+    'Cardiovascular',
+    'Pulmonary',
+    'Allergy and Clinical Immunology',
+    'Endocrinology',
+    'Sleep Medicine Testing and Long-term EEG Procedures',
+    'Neurology and Neuromuscular Procesures',
+    'Central Nervous System Assessments/Tests (neuro-cognitive, mental status, speech testing)',
+    'Health and Behavior Assessment/Intervention',
+    'Hydration, Therapeutic, Prophylactic, Diagnostic Injections and Infusions, and Chemotherapy and Other Highly Complex Drug or Highly Complex Biologic Agent Administration',
+    'Photodynamic Therapy',
+    'Sepcial Dermatological Procedures',
+    'Physical Medicine and Rehabilitation',
+    'Medical Nutrition Therapy',
+    'Acupuncture',
+    'Osteopathic Manipulative Treatment',
+    'Chiropractic Manipulative Treatment',
+    'Education and Training for Patient Self-Management',
+    'Non-face-to-face Nonphysician Services',
+    'Special Services, Procedures, and Reports',
+    'Other Services and Procedures',
+    'Home Health Procedures/Services',
+    'Medication Therapy Management Services',
+    "Emerging Technology, Service or Procedure"
+]
+
+categories.each {|e| Category.create!(name: e)}
+
+
 puts "seeding CPT codes"
 
 # NYP: we use the json provided by NYP to create procedure codes since it is 
@@ -44,85 +131,85 @@ codes.each do |k|
             c = CommonProcedureCode.new
             c.code = match['CPT Code']
             c.description = match['Description']
-            c.category = match['Category']
-            t.category = match['Category']
+            c.category_id = Category.find_by!(name: match['Category']).id
+            t.category_id = Category.find_by!(name: match['Category']).id
             c[:common_procedure?] = true
             c.save!
         else
             # switch statement to determine category
             t[:common_procedure?] = false
             if t.code.last != "F" && t.code.last != "T"
-                t.category = case t.code
-                when /^00/ then "COVID Vaccinations"
-                when /^A0/ then "Ambulance and Other Transport Services and Supplies"
-                when /^A2/ then "Matrix for Wound Management (Placental, Equine, Synthetic)"
-                when /^A4100/ then "Skin Substitute Device"
-                when /^A4[2-9]/, /^A[5-8]/ then "Medical And Surgical Supplies"
-                when /^A9/ then "Administrative, Miscellaneous and Investigational"
-                when /^B/ then "Enteral and Parenteral Therapy"
-                when /^C10[5-6]/ then "Other Therapeutic Procedures"
-                when /^C1[7-9]/, /C[2-9]/ then "Hospital Outpatient Services"
-                when /^D/ then "Dental Procedures"
-                when /^E/ then "Durable Medical Equipment"
-                when /^G/ then "Procedures / Professional Services"
-                when /^H/ then "Alcohol and Drug Abuse Treatment"
-                when /^J[0-8]/ then "Drugs Administered Other than Oral Method"
-                when /^J[9]/ then "Chemotherapy Drugs"
-                when /^K0/ then "Durable medical equipment (DME) Medicare administrative contractors (MACs)"
-                when /^K1/ then "Components, Accessories and Supplies"
-                when /^L[0-4]/ then "Orthotic Procedures and services"
-                when /^L[5-9]/ then "Prosthetic Procedures"
-                when /^M0/ then "Miscellaneous Medical Services"
-                when /^M10/ then "Screening Procedures"
-                when /^M11/ then "Other Services"
-                when /^P/ then "Pathology and Laboratory Services"
-                when /^Q/ then "Temporary Codes"
-                when /^R/ then "Diagnostic Radiology Services"
-                when /^S/ then "Temporary National Codes (Non-Medicare)"
-                when /^T/ then "National Codes Established for State Medicaid Agencies"
-                when /^U000[1-5]/ then "Coronavirus Diagnostic Panel"
-                when /^V2/ then "Vision Services"
-                when /^V5/ then "Hearing Services"
-                when /^99[2-4]/ then "Evaluation & Management"
-                when /^001[0-9]/ then "Anesthesia"
-                when /^[1-6]/ then "Surgery"
-                when /^7[0-6]/, /^77[0-1]/ then "Diagnostic Radiology"
-                when /^77[2-9]/ then "Radiation Oncology"
-                when /^7[8-9]/ then "Nuclear Medicine"
-                when /^8/ then "Pathology and Laboratory Services"
-                when /^90[2-3]/ then "Immune Globulins, Serum or Recombinant Prods"
-                when /^90[4-7]/ then "Immunizations and Vaccinations"
-                when /^908/ then "Psychiatry"
-                when /^909[0-1]/ then "Biofeedback"
-                when /^909[3-9]/ then "Dialysis"
-                when /^91/ then "Gastroenterology"
-                when /^92[0-4]/ then "Ophthalmology"
-                when /^92[5-7]/ then "Special Otorhinolaryngologic Services"
-                when /^929/, /^93[0-9]/ then "Cardiovascular"
-                when /^94/ then "Pulmonary"
-                when /^95[0-1]/ then "Allergy and Clinical Immunology"
-                when /^952/ then "Endocrinology"
-                when /^957/, /^958[0-2]/ then "Sleep Medicine Testing and Long-term EEG Procedures"
-                when /^958[3-9]/, /^959/, /^960/ then "Neurology and Neuromuscular Procesures"
-                when /^961[0-3]/ then "Central Nervous System Assessments/Tests (neuro-cognitive, mental status, speech testing)"
-                when /^9615/ then "Health and Behavior Assessment/Intervention"
-                when /^96[3-4]/, /^965[0-4]/ then "Hydration, Therapeutic, Prophylactic, Diagnostic Injections and Infusions, and Chemotherapy and Other Highly Complex Drug or Highly Complex Biologic Agent Administration"
-                when /^965[6-7]/ then "Photodynamic Therapy"
-                when /^969/ then "Sepcial Dermatological Procedures"
-                when /^97[0-7]/ then "Physical Medicine and Rehabilitation"
-                when /^9780[2-4]/ then "Medical Nutrition Therapy"
-                when /^9781[0-4]/ then "Acupuncture"
-                when /^9892/ then "Osteopathic Manipulative Treatment"
-                when /^9894/ then "Chiropractic Manipulative Treatment"
-                when /^9896[0-2]/ then "Education and Training for Patient Self-Management"
-                when /^9896[6-9]/ then "Non-face-to-face Nonphysician Services"
-                when /^990/ then "Special Services, Procedures, and Reports"
-                when /^991/ then "Other Services and Procedures"
-                when /^995/, /^9960[0-2]/ then "Home Health Procedures/Services"
-                when /^9960-[5-7]/ then "Medication Therapy Management Services"
+                t.category_id = case t.code
+                when /^00/ then 12
+                when /^A0/ then 13
+                when /^A2/ then 14
+                when /^A4100/ then 15
+                when /^A4[2-9]/, /^A[5-8]/ then 16
+                when /^A9/ then 17
+                when /^B/ then 18
+                when /^C10[5-6]/ then 19
+                when /^C1[7-9]/, /C[2-9]/ then 20
+                when /^D/ then 21
+                when /^E/ then 22
+                when /^G/ then 23
+                when /^H/ then 24
+                when /^J[0-8]/ then 25
+                when /^J[9]/ then 26
+                when /^K0/ then 27
+                when /^K1/ then 28
+                when /^L[0-4]/ then 29
+                when /^L[5-9]/ then 30
+                when /^M0/ then 31
+                when /^M10/ then 32
+                when /^M11/ then 33
+                when /^P/ then 34
+                when /^Q/ then 35
+                when /^R/ then 36
+                when /^S/ then 37
+                when /^T/ then 38
+                when /^U000[1-5]/ then 39
+                when /^V2/ then 40
+                when /^V5/ then 41
+                when /^99[2-4]/ then 42
+                when /^001[0-9]/ then 43
+                when /^[1-6]/ then 44
+                when /^7[0-6]/, /^77[0-1]/ then 45
+                when /^77[2-9]/ then 46
+                when /^7[8-9]/ then 47
+                when /^8/ then 48
+                when /^90[2-3]/ then 49
+                when /^90[4-7]/ then 50
+                when /^908/ then 51
+                when /^909[0-1]/ then 52
+                when /^909[3-9]/ then 53
+                when /^91/ then 54
+                when /^92[0-4]/ then 55
+                when /^92[5-7]/ then 56
+                when /^929/, /^93[0-9]/ then 57
+                when /^94/ then 58
+                when /^95[0-1]/ then 59
+                when /^952/ then 60
+                when /^957/, /^958[0-2]/ then 61
+                when /^958[3-9]/, /^959/, /^960/ then 62
+                when /^961[0-3]/ then 63
+                when /^9615/ then 64
+                when /^96[3-4]/, /^965[0-4]/ then 65
+                when /^965[6-7]/ then 66
+                when /^969/ then 67
+                when /^97[0-7]/ then 68
+                when /^9780[2-4]/ then 69
+                when /^9781[0-4]/ then 70
+                when /^9892/ then 71
+                when /^9894/ then 72
+                when /^9896[0-2]/ then 73
+                when /^9896[6-9]/ then 74
+                when /^990/ then 75
+                when /^991/ then 76
+                when /^995/, /^9960[0-2]/ then 77
+                when /^9960-[5-7]/ then 78
                 end
             elsif t.code.last == "T"
-                t.category = "Emerging Technology, Service or Procedure"
+                t.category_id = 79
 
             end
         end
@@ -238,7 +325,7 @@ end
 #     puts "saved... #{t.code}"
 # end
 
-# puts "done"
+puts "done"
 
 
 puts "done 🔥🔥🔥"

@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
 }
+
 .App {
   text-align: center;
 
@@ -46,4 +47,19 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.compare-results {
+  display: flex;
+  height: 8em;
+  width: 30em;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 1em;
+  margin-left: 50%;
+  transform: translate(-50%);
+  gap: 3em;
+  padding: 3em;
 }
