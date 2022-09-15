@@ -23,15 +23,15 @@ function App() {
 
 
 
-  // useEffect(() => {
-  //   fetch("http://127.0.0.1:3000/me", {
-  //     headers: {
-  //       Authorization: `Bearer ${Cookies.get('token')}`,
-  //     },
-  //   })
-  //     .then((r) => r.json())
-  //     .then((data) => dispatch(login({ id: data.id, email: data.email, username: data.username })));
-  // }, [])
+  useEffect(() => {
+    fetch("http://127.0.0.1:3000/me", {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('token')}`,
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => dispatch(login({ id: data.id, email: data.email, username: data.username })));
+  }, [])
 
   const [searchedProcedure, setSearchedProcedure] = useState({})
   const [nearbyHospitals, setNearbyHospitals] = useState([])
