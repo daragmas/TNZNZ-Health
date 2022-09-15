@@ -12,7 +12,7 @@ class PricingsController < ApplicationController
 
     def show_pricing_by_hospital_and_procedure
         p = Pricing.find_by!(hospital_id: params[:hospital_id], procedure_code_id: params[:procedure_code_id])
-        render json: p
+        render json: p, serializer: nil
     end
 
     private
