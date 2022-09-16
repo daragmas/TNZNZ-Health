@@ -64,7 +64,6 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
                 in_network: getBoolean(isParticipating)
             }
             setUserResult(obj)
-            console.log(calculate())
             setCalculatedCost(calculate())
         }
         setAwaitingResult(false)
@@ -167,7 +166,7 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
                         </div>
                     </div>
                     <div className='submission-div'>
-                        <button type='submit'>Calculate</button>
+                        <button type='submit'>{awaitingResult ? "Calculate" : "Re-calculate"}</button>
                     </div>
 
                 </form>
@@ -180,7 +179,8 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
                         <div className='cost'>
                             Your expected responsibility: ${parseFloat(calculatedCost).toFixed(2)}
                         </div>
-                        { !getBoolean(isCovered) || !getBoolean(isParticipating)                            ?
+                        {(!getBoolean(isCovered) || !getBoolean(isParticipating)) && awaitingResult                           
+                            ?
                                 <div>
                                     Your responsibility for non-covered services or services rendered by an out-of-network proivder may equal 100% of billed charges. 
                                 </div>
