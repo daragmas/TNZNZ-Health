@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_15_174049) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_16_043643) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,6 +37,37 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_15_174049) do
     t.datetime "updated_at", null: false
     t.float "latitude"
     t.float "longitude"
+  end
+
+  create_table "insurance_templates", force: :cascade do |t|
+    t.float "coinsurance"
+    t.float "copay"
+    t.float "deductible"
+    t.float "deductible_met"
+    t.string "insurance"
+    t.boolean "in_network"
+    t.float "out_of_pocket"
+    t.float "out_of_pocket_met"
+    t.string "service_category"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "insurances", force: :cascade do |t|
+    t.float "coinsurance"
+    t.float "copay"
+    t.float "deductible"
+    t.float "deductible_met"
+    t.string "insurance"
+    t.boolean "in_network"
+    t.float "out_of_pocket"
+    t.float "out_of_pocket_met"
+    t.string "service_category"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "nickname"
   end
 
   create_table "pricings", force: :cascade do |t|

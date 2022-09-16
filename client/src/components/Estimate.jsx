@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import Cookies from 'js-cookie'
 
 const Estimate = ({ pricingForEstimate, insurance }) => {
+    const user = useSelector((state) => state.user.value)
     const [copay, setCopay] = useState(0)
     const [maxDeductible, setMaxDeductible] = useState(0)
     const [deductibleMet, setDeductibleMet] = useState(0)
@@ -16,6 +19,8 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
     const [copayApplication, setCopayApplication] = useState(0)
     const [deductibleApplication, setDeductibleApplication] = useState(0)
     const [coinsruranceApplication, setCoinsuranceApplication] = useState(0)
+    const [showNicknameMenu, setShowNicknameMenu] = useState(false)
+    const [nickname, setNickname] = useState('')
 
     const navigate = useNavigate()
 
@@ -30,20 +35,47 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
         procedure_code
     } = pricingForEstimate
 
-    useEffect(() => {
-        const getPricingWithHospitalAndProcedure = async () => {
-            let req = await fetch(`http://localhost:3000/pricings/${id}/`)
-            let res = await req.json()
-        }
-        getPricingWithHospitalAndProcedure()
-    }, [])
-
     const getBoolean = (string) => {
         if (string == "Yes") {
             return true
         } else {
             return false
         }
+    }
+
+    const postInsurance = async () => {
+        if (user.id != null) {
+            let req = await fetch('http://localhost:3000/insurances', {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${Cookies.get("token")}`,
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify(userResult)
+            })
+            if (req.ok) {
+                let res = await req.json()
+            } else {
+                alert(':^)')
+            }
+        } else {
+            alert('Please log in')
+        }
+    }
+
+    const handleClickSave = () => {
+        setShowNicknameMenu(true)
+    }
+
+    const handleChangeN = (e) => {
+        setNickname(e.target.value)
+    }
+
+
+    const handleSubmitSave = async (e) => {
+        e.preventDefault()
+        await postInsurance()
     }
 
     const handleSubmit = (e) => {
@@ -53,29 +85,32 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
         } else {
             let obj = {
                 ...userResult,
-                insurance: insurance,
+                coinsurance: coinsurance,
                 copay: copay,
                 deductible: maxDeductible,
                 deductible_met: deductibleMet,
-                coinsurance: coinsurance,
+                insurance: insurance,
+                in_network: getBoolean(isParticipating),
+                nickname: `${insurance} ${procedure_code.category.toLowerCase()}`,
                 out_of_pocket: maxOutOfPocket,
                 out_of_pocket_met: outOfPocketMet,
                 service_category: procedure_code.category,
-                in_network: getBoolean(isParticipating)
+                user_id: user.id
             }
             setUserResult(obj)
+            // console.log(obj)
             setCalculatedCost(calculate())
         }
         setAwaitingResult(false)
     }
-
+    
     const evaluateOOP = (num) => {
         let target = maxOutOfPocket - outOfPocketMet
         if (num > target) {
             return target 
         } else return num
     }
-
+    
     const calculate = () => {
         let cost = parseFloat(pricingForEstimate.insurances[insurance])
         if (!getBoolean(isCovered) || !getBoolean(isParticipating)) {
@@ -172,20 +207,24 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
                 </form>
             </div>
             {awaitingResult
-                ? <div>Disclaimer: a calculation provided by this website is not a guarantee of payment. For complete details regarding your insurance policy, please contact your insurance provider.</div>
+                ? 
+                <div>
+                    Disclaimer: a calculation provided by this website is not a guarantee of payment. For complete details regarding your insurance policy, please contact your insurance provider.
+                </div>
                 :
                 <div className='estimate-results-container'>
                     <div className='estimate-card'>
-                        <div className='cost'>
+                        <div className='cost-container'>
                             Your expected responsibility: ${parseFloat(calculatedCost).toFixed(2)}
                         </div>
                         {(!getBoolean(isCovered) || !getBoolean(isParticipating)) && awaitingResult                           
                             ?
-                                <div>
-                                    Your responsibility for non-covered services or services rendered by an out-of-network proivder may equal 100% of billed charges. 
-                                </div>
+                            <div className='responsibility-container'>
+                                Your responsibility for non-covered services or services rendered by an out-of-network proivder may equal 100% of billed charges. 
+                            </div>
                             :
-                                <div>
+                            <div className='breakdown-container'>
+                                <div className='amounts-container'>
                                     <div>
                                         Amount applied to copay: ${parseFloat(copayApplication).toFixed(2)}
                                     </div>
@@ -196,6 +235,23 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
                                         Amount applied to coinsurance: ${parseFloat(coinsruranceApplication).toFixed(2)}
                                     </div>
                                 </div>
+                                <div>
+                                    <div className='save-insurance-button' onClick={handleClickSave}>
+                                        Save This Policy Info
+                                    </div>
+                                    { showNicknameMenu 
+                                    ? 
+                                        <div className='nickname-container'>
+                                            <form onSubmit={handleSubmitSave}>
+                                            <input type='text' name='nn' value={nickname} placeholder='nickname' onChange={handleChangeN} /> 
+                                            <button type='submit'>Save</button>
+                                            </form>
+                                        </div>
+                                    : 
+                                        null 
+                                    }
+                                </div>
+                            </div>
                         }
                     </div>
                 </div>
