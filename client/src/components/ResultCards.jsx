@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const ResultCards = ({ hospital, searchedProcedure, selectedInsuranceName, setPricingForEstimate }) => {
+const ResultCards = ({ hospital, searchedProcedure, selectedInsuranceName, setPricingForEstimate, setInsuranceForEstimate }) => {
 
     const [pricing, setPricing] = useState({})
     const navigate = useNavigate()
@@ -17,6 +17,7 @@ const ResultCards = ({ hospital, searchedProcedure, selectedInsuranceName, setPr
 
     const handleClick = () => {
         setPricingForEstimate(pricing)
+        setInsuranceForEstimate(selectedInsuranceName)
         navigate("/estimate")
     }
 
