@@ -26,6 +26,9 @@ const Navbar = ({ toggleSidebar }) => {
             <NavLink style={{ color: 'inherit', textDecoration: 'none' }} to="/TNZNZ-Health/">TNZNZ Health</NavLink>
           </NavItem>
           <NavItem>
+            <NavLink style={{ color: 'inherit', textDecoration: 'none' }} to="/TNZNZ-Health/search">Search</NavLink>
+          </NavItem>
+          <NavItem>
             <NavLoginContainer>
               {user.username ? (
                 <>
