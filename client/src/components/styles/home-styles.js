@@ -1,17 +1,28 @@
 import styled from 'styled-components'
 
-export const HomeContainer = styled.div`
+export const HomeContainer1 = styled.div`
         position: relative;
         display: flex;
-      background-color: #03C8A8;
-      width: 100%;
-      /* transform: translate(10vw); */
-      padding-left: 5em;
-      margin-bottom: 20px;
-      /* margin-left: 50%; */
-      /* transform: translate(-50%); */
-      
+        background-color: #aff1da;
+        width: 100%;
+        padding-left: 5em;
+        `
 
+export const HomeContainer2 = styled.div`
+        position: relative;
+        display: flex;
+        background-color: #ffcfdf;
+      width: 100%;
+      padding-right: 5em;
+`
+
+export const HomeContainer3 = styled.div`
+        position: relative;
+        /* display: flex; */
+      background-color: #b0f3f1;
+      width: 100%;
+      padding: 5em;
+      margin: 5px;
 `
 
 export const Text = styled.h1`
@@ -49,7 +60,8 @@ export const Button = styled.button`
 export const Footer = styled.div`
     width: auto;
     height: auto;
-    background-color: #ccc;
+    background-color: #b0f3f1;
     bottom: 0;
+    margin: 15px;
    /* transform: translate(10vw); */
 `
