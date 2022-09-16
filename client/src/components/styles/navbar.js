@@ -5,7 +5,7 @@ export const Nav = styled.nav`
     
     height: 90px;
     font-size: 1rem;
-    position: sticky;
+    /* position: sticky; */
     top: 0;
     z-index: +1;
     /* border-bottom: 1px solid black; */
@@ -35,14 +35,15 @@ export const NavItem = styled.div`
     flex: 1;
     text-align: center;
 `
-export const NavLogo = styled.div`
-    background-image: url(${props => props.image});
-    background-repeat: no-repeat;
-    width: 100px;
-    height: 80px;
-    border-radius: 24px;
+// export const NavLogoContainer = styled.div`
+//     width: 200px;
+//     height: 200px;
+// `
+export const NavLogo = styled.img`
+    
+    width: 12em;
     margin-top: 5px;
-    margin-left: 2em;
+    
 `
 
 

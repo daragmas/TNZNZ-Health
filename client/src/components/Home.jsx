@@ -1,12 +1,14 @@
 import { HomeContainer, Text, Disclaimer, Button, Image, Footer } from "./styles/home-styles";
 import dust from './media/dust.mp4';
 import { Link } from 'react-router-dom'
-import DocPic from './media/docPic.jpg'
+import HomepageHand from './media/HomepageHand.png'
+import Logo4_transparenz from './media/Logo4_transparenz.png'
+import MedicalparachuteHomepage from './media/MedicalparachuteHomepage.png'
 
 
 const Home = () => {
     return (
-        <div >
+        <div className="homescreen" >
             <div>
                 <video
                     className='Video'
@@ -25,9 +27,11 @@ const Home = () => {
                     </div>
                 </div>
 
+            </div>
 
-                <HomeContainer>
+            <HomeContainer>
 
+                <div>
 
                     <Text>What We Do:</Text>
                     <Text>TNZNZ Health is in the business of providing accurate data to YOU. If you are uninsured or underinsured or just need to have a better understanding of medical billing, we're here to help. Below, you can search based on your providers advice to find the best pricing for similar procedures at the hospitals in your area.</Text>
@@ -36,12 +40,41 @@ const Home = () => {
 
                     <Disclaimer>Disclaimer: no information provided here is guaranteed, this service exists to provide estimates of medical costs and assist in the effort at reducing avoidable medical debt</Disclaimer>
 
+                </div>
 
-                </HomeContainer >
-                {/* </div> */}
 
+                <div className="img-container">
+
+                    <img className="image" src={HomepageHand} />
+                </div>
+
+            </HomeContainer >
+            {/* </div> */}
+
+            <HomeContainer>
+
+                <div className="img-container">
+                    <img src={MedicalparachuteHomepage} />
+                </div>
+                <Text>What is Hospital Price Transparency?</Text>
+
+                <Text>"Hospital price transparency helps Americans know the cost of a hospital item or service before receiving it. Starting January 1, 2021, each hospital operating in the United States will be required to provide clear, accessible pricing information online about the items and services they provide in two ways: <br /><br />
+
+                    1. As a comprehensive machine-readable file with all items and services.<br /><br />
+                    2. In a display of shoppable services in a consumer-friendly format.<br /><br />
+
+                    This information will make it easier for consumers to shop and compare prices across hospitals and estimate the cost of care before going to the hospital."</Text>
+                <p>Source: <a target="_blank" href="https://www.cms.gov/hospital-price-transparency">Centers for Medicare & Medicaid Services </a></p>
+            </HomeContainer>
+
+            <div className="img-container">
+
+                <img className="image2" src={Logo4_transparenz} />
             </div>
 
+            <Link to='/TNZNZ-Health/search'>
+                <button className="startBtn">Start Here!</button>
+            </Link>
 
 
 
@@ -54,31 +87,12 @@ const Home = () => {
                 <div>
 
 
-                    <Link
-                        className='Link' to='/TNZNZ-Health/search'>
-                    </Link>
-
-                    <Image src="https://img.icons8.com/cotton/344/hospital--v3.png" />
-
-                    <Link to='/TNZNZ-Health/search'>
-                        <Text>Start Here!</Text>
-                    </Link>
 
 
                 </div>
             </div>
 
-            <HomeContainer>
-                <Text>What is Hospital Price Transparency?</Text>
 
-                <Text>"Hospital price transparency helps Americans know the cost of a hospital item or service before receiving it. Starting January 1, 2021, each hospital operating in the United States will be required to provide clear, accessible pricing information online about the items and services they provide in two ways: <br /><br />
-
-                    1. As a comprehensive machine-readable file with all items and services.<br /><br />
-                    2. In a display of shoppable services in a consumer-friendly format.<br /><br />
-
-                    This information will make it easier for consumers to shop and compare prices across hospitals and estimate the cost of care before going to the hospital."</Text>
-                <p>Source: <a target="_blank" href="https://www.cms.gov/hospital-price-transparency">Centers for Medicare & Medicaid Services </a></p>
-            </HomeContainer>
 
             <HomeContainer>
                 <Text>Where Do We Get Our Data?</Text>
