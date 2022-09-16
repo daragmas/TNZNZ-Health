@@ -26,6 +26,7 @@ const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals, setPric
 
     const handleClick = () => {
         setPricingForEstimate(thisHospitalData)
+        setInsuranceForEstimate(selectedInsuranceName)
         navigate("/TNZNZ-Health/estimate")
     }
 

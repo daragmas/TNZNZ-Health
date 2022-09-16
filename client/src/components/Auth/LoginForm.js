@@ -27,7 +27,7 @@ const LoginForm = () => {
   const [errors, setErrors] = useState(null)
   // console.log('username', user.username)
   if (user.username) {
-    return <Navigate to="/TNZNZ_Health" replace />;
+    return <Navigate to="/TNZNZ-Health" replace />;
   }
 
   const handleChange = (e) => {

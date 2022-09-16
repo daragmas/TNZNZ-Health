@@ -22,7 +22,7 @@ const Profile = () => {
     const [avatarImage, setAvatarImage] = useState(null)
     useEffect(() => {
         if (!user.username) {
-            navigate('/');
+            navigate('/TNZNZ-Health');
         }
         const getAvatar = async () => {
             const req = await fetch(
