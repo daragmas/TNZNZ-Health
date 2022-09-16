@@ -16,9 +16,10 @@ const ResultCards = ({ hospital, searchedProcedure, selectedInsuranceName, setPr
     }, [])
 
     const handleClick = () => {
+        console.log(pricing)
         setPricingForEstimate(pricing)
         setInsuranceForEstimate(selectedInsuranceName)
-        navigate("/estimate")
+        navigate("/TNZNZ-Health/estimate")
     }
 
     return (
