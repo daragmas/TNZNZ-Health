@@ -12,6 +12,10 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
     const [awaitingResult, setAwaitingResult] = useState(true)
     const [isParticipating, setIsParticipating] = useState("Yes")
     const [isCovered, setIsCovered] = useState("Yes")
+    const [calculatedCost, setCalculatedCost] = useState(null)
+    const [copayApplication, setCopayApplication] = useState(0)
+    const [deductibleApplication, setDeductibleApplication] = useState(0)
+    const [coinsruranceApplication, setCoinsuranceApplication] = useState(0)
 
     const navigate = useNavigate()
 
@@ -44,22 +48,26 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        let obj = {
-            ...userResult,
-            insurance: insurance,
-            copay: copay,
-            deductible: maxDeductible,
-            deductible_met: deductibleMet,
-            coinsurance: coinsurance,
-            out_of_pocket: maxOutOfPocket,
-            out_of_pocket_met: outOfPocketMet,
-            service_category: procedure_code.category,
-            in_network: getBoolean(isParticipating)
+        if (deductibleMet > maxDeductible || outOfPocketMet > maxOutOfPocket) {
+            alert('Please review the form for issues.')
+        } else {
+            let obj = {
+                ...userResult,
+                insurance: insurance,
+                copay: copay,
+                deductible: maxDeductible,
+                deductible_met: deductibleMet,
+                coinsurance: coinsurance,
+                out_of_pocket: maxOutOfPocket,
+                out_of_pocket_met: outOfPocketMet,
+                service_category: procedure_code.category,
+                in_network: getBoolean(isParticipating)
+            }
+            setUserResult(obj)
+            console.log(calculate())
+            setCalculatedCost(calculate())
         }
-        // setAwaitingResult(false)
-        console.log(obj)
-        setUserResult(obj)
-        console.log(calculate())
+        setAwaitingResult(false)
     }
 
     const evaluateOOP = (num) => {
@@ -71,17 +79,26 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
 
     const calculate = () => {
         let cost = parseFloat(pricingForEstimate.insurances[insurance])
+        if (!getBoolean(isCovered) || !getBoolean(isParticipating)) {
+            return parseFloat(discounted_cash_price).toFixed(2)
+        }
         let deduct = maxDeductible - deductibleMet
         if (cost > 0) {
             if (maxOutOfPocket == outOfPocketMet) {
                 return 0
             } else if (cost < copay) {
+                setCopayApplication(evaluateOOP(cost))
                 return evaluateOOP(cost)
             } else if (cost < (copay + deduct)) {
+                setCopayApplication(copay)
+                setDeductibleApplication(evaluateOOP(cost) - copay)
                 return evaluateOOP(cost)
             } else if (cost > (copay + deduct)) {
+                setCopayApplication(copay)
+                setDeductibleApplication(deduct)
                 let ptr = copay + deduct
-                let coinsAmt = (cost - ptr) * coinsurance
+                let coinsAmt = (cost - ptr) * coinsurance / 100
+                setCoinsuranceApplication(coinsAmt)
                 return evaluateOOP(ptr + coinsAmt)
             }
         } else alert('invalid input')
@@ -104,68 +121,87 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
 
     return (
         <div className='estimate'>
-        { awaitingResult 
-            ?
-                <div className='estimate-form-container'>
-                    <div>{procedure_code.description} at {hospital.hospital_system}: Gross charges ${parseFloat(gross_charges).toFixed(2)} Insurance Rate through {adjustName(insurance)}: ${parseFloat(insurances[insurance]).toFixed(2)}</div>
-                    <form onSubmit={handleSubmit}>
-                        <div className='estimate-question'>
-                            <p>Does this hospital participate with your insurance?</p>
-                            <div className='radio-container'>
-                                <input type='radio' onChange={handleChangeP} checked={isParticipating === "Yes"} value="Yes"/><label>Yes</label>
-                                <input type='radio' onChange={handleChangeP} checked={isParticipating === "No"} value="No"/><label>No</label>
-                                <br />
-                            </div>
+            <div className='estimate-form-container'>
+                <div>{procedure_code.description} at {hospital.hospital_system}: Gross charges ${parseFloat(gross_charges).toFixed(2)} Insurance Rate through {adjustName(insurance)}: ${parseFloat(insurances[insurance]).toFixed(2)}</div>
+                <form onSubmit={handleSubmit}>
+                    <div className='estimate-question'>
+                        <p>Does this hospital participate with your insurance?</p>
+                        <div className='radio-container'>
+                            <input type='radio' onChange={handleChangeP} checked={isParticipating === "Yes"} value="Yes"/><label>Yes</label>
+                            <input type='radio' onChange={handleChangeP} checked={isParticipating === "No"} value="No"/><label>No</label>
+                            <br />
                         </div>
-                        <div className='estimate-question'>
-                            <p>Does your insurance cover this procedure?</p>
-                            <div className='radio-container'>
-                                <input type='radio' onChange={handleChangeC} checked={isCovered === "Yes"} value="Yes" /><label>Yes</label>
-                                <input type='radio' onChange={handleChangeC} checked={isCovered === "No"} value="No" /><label>No</label>
-                                <br />
-                            </div>
+                    </div>
+                    <div className='estimate-question'>
+                        <p>Does your insurance cover this procedure?</p>
+                        <div className='radio-container'>
+                            <input type='radio' onChange={handleChangeC} checked={isCovered === "Yes"} value="Yes" /><label>Yes</label>
+                            <input type='radio' onChange={handleChangeC} checked={isCovered === "No"} value="No" /><label>No</label>
+                            <br />
                         </div>
-                        <div className='estimate-question'>
-                            <div className='number-container'>
-                                <label> Copayment for service </label><input type='number' value={parseFloat(copay)} onChange={(e => setCopay(parseFloat(e.target.value)))}/>
-                                <br />
-                            </div>
+                    </div>
+                    <div className='estimate-question'>
+                        <div className='number-container'>
+                            <label> Copayment for service </label><input type='number' min={0} value={parseFloat(copay)} onChange={(e => setCopay(parseFloat(e.target.value)))}/>
+                            <br />
                         </div>
-                        <div className='estimate-question'>
-                            <div className='number-container'>
-                                <label> Annual deductible </label><input type='number' value={parseFloat(maxDeductible)} onChange={(e => setMaxDeductible(parseFloat(e.target.value)))}/>
-                                <label> Amount met to date </label><input type='number' value={parseFloat(deductibleMet)} onChange={(e => setDeductibleMet(parseFloat(e.target.value)))}/><span>/{maxDeductible}</span>
-                                <br />
-                            </div>
-                        <div className='estimate-question'>
-                            <div className='number-container'>
-                                <label> Coinsurance for service </label><input type='number' min="0" max="100" value={parseFloat(coinsurance)} onChange={(e => setCoinsurance(parseFloat(e.target.value)))}/>%
-                                <br />
-                            </div>
+                    </div>
+                    <div className='estimate-question'>
+                        <div className='number-container'>
+                            <label> Annual deductible </label><input type='number' min={0} value={parseFloat(maxDeductible)} onChange={(e => setMaxDeductible(parseFloat(e.target.value)))}/>
+                            <label> Amount met to date </label><input type='number' min={0} value={parseFloat(deductibleMet)} onChange={(e => setDeductibleMet(parseFloat(e.target.value)))}/><span>/{maxDeductible}</span>
+                            <br />
                         </div>
+                    <div className='estimate-question'>
+                        <div className='number-container'>
+                            <label> Coinsurance for service </label><input type='number' min="0" max="100" value={parseFloat(coinsurance)} onChange={(e => setCoinsurance(parseFloat(e.target.value)))}/>%
+                            <br />
                         </div>
-                        <div className='estimate-question'>
-                            <div className='number-container'>
-                                <label> Annual out-of-pocket maximum </label><input type='number' value={maxOutOfPocket} onChange={(e => setMaxOutOfPocket(parseFloat(e.target.value)))} />
-                                <label> Amount met to date </label><input type='number' value={outOfPocketMet} onChange={(e => setOutOfPocketMet(parseFloat(e.target.value)))} /><span>/{maxOutOfPocket}</span>
-                                <br />
-                            </div>
+                    </div>
+                    </div>
+                    <div className='estimate-question'>
+                        <div className='number-container'>
+                            <label> Annual out-of-pocket maximum </label><input type='number' min={maxDeductible} value={maxOutOfPocket} onChange={(e => setMaxOutOfPocket(parseFloat(e.target.value)))} />
+                            <label> Amount met to date </label><input type='number' min={0} value={outOfPocketMet} onChange={(e => setOutOfPocketMet(parseFloat(e.target.value)))} /><span>/{maxOutOfPocket}</span>
+                            <br />
                         </div>
-                        <div className='submission-div'>
-                            <button type='submit'>Calculate</button>
-                        </div>
+                    </div>
+                    <div className='submission-div'>
+                        <button type='submit'>Calculate</button>
+                    </div>
 
-                    </form>
-                </div>
-            :
+                </form>
+            </div>
+            {awaitingResult
+                ? <div>Disclaimer: a calculation provided by this website is not a guarantee of payment. For complete details regarding your insurance policy, please contact your insurance provider.</div>
+                :
                 <div className='estimate-results-container'>
                     <div className='estimate-card'>
-                        <div>
-                            Your expected cost: {}
+                        <div className='cost'>
+                            Your expected cost: {parseFloat(calculatedCost).toFixed(2)}
                         </div>
+                        { !getBoolean(isCovered) || !getBoolean(isParticipating)                            ?
+                                <div>
+                                    Your responsibility for non-covered services or services rendered by an out-of-network proivder may equal 100% of billed charges. 
+                                </div>
+                            :
+                                <div>
+                                    <div>
+                                        Amount applied to copay: {parseFloat(copayApplication).toFixed(2)}
+                                    </div>
+                                    <div>
+                                        Amount applied to deductible: {parseFloat(deductibleApplication).toFixed(2)}
+                                    </div>
+                                    <div>
+                                        Amount applied to coinsurance: {parseFloat(coinsruranceApplication).toFixed(2)}
+                                    </div>
+                                </div>
+                        }
                     </div>
                 </div>
         }
+            {deductibleMet > maxDeductible ? <div>Error: the amount met toward your deductible cannot exceed your annual deductible.</div> : <></>}
+            {outOfPocketMet > maxOutOfPocket ? <div>Error: the amount met toward your out-of-pocket maximum cannot exceed your annual out-of-pocket maximum.</div> : <></>}
         </div>
     )
 }
