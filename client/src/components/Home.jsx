@@ -27,15 +27,19 @@ const Home = () => {
                     <div className="title">
                         Transparenz
 
-                        <h2 style={{ fontSize: "20px", color: "#ccc" }}>
-                            Where you can price check procedures before you check-in, with confidence!
+                        <h2 style={{ fontSize: "25px", color: "#13a95b" }}>
+                            Price check any procedure against other hospitals before you check-in.
                         </h2>
 
+
+
                     </div>
+
                     <div>
                         <img className="titlegif" src={Searching} />
 
                     </div>
+
                 </div>
 
             </div>
@@ -45,7 +49,7 @@ const Home = () => {
                 <div className="text">
 
                     <Text>What We Do:</Text>
-                    <Text>TNZNZ Health is in the business of providing accurate data to YOU. If you are uninsured or underinsured or just need to have a better understanding of medical billing, we're here to help. Below, you can search based on your providers advice to find the best pricing for similar procedures at the hospitals in your area.</Text>
+                    <Text>Transparenz aims to provide accurate and transparent medical procedures. If you are uninsured or underinsured or just need to have a better understanding of medical billing, we're here to help. Below, you can search based on your providers advice to find the best pricing for similar procedures at the hospitals in your area.</Text>
 
                     <Disclaimer>Disclaimer: if you are experiencing a medical emergency, dial 911 or seek help immediately</Disclaimer>
 
@@ -88,7 +92,7 @@ const Home = () => {
             </div>
 
             <Link to='/TNZNZ-Health/search'>
-                <button className="startBtn">Start Here!</button>
+                <button className="startBtn">Compare here!</button>
             </Link>
 
 
@@ -98,7 +102,7 @@ const Home = () => {
                 <HomeContainer3>
                     <Text>Where Do We Get Our Data?</Text>
                     <Text>
-                        Thanks to those who have advocated for patients rights and the Center for Medicare & Medicaid Services, medical pricing data has become publicly available. Unfortunately, much of that data, while available, is not very accessible or easy to read. That is why we at TranspareNZ have decided to go through that data for you in an attempt to get you the best, most accurate medical pricing available. <br /><br />
+                        Thanks to those who have advocated for patients rights and the Center for Medicare & Medicaid Services, medical pricing data has become publicly available. Unfortunately, much of that data, while available, is not very accessible or easy to read. That is why we at Transparenz have decided to go through that data for you in an attempt to get you the best, most accurate medical pricing available. <br /><br />
                         Our data comes directly from the hospitals we have listed, which will be growing as we grow.
                     </Text>
 
@@ -109,7 +113,7 @@ const Home = () => {
                         What are we doing?
                     </Text>
                     <Text>
-                        Currently, TNZNZ Health is able to provide accurate data on medical pricing for some of the largest hospital systems in the New York Metropolitan area. TNZNZ is hoping to expand its services and grow its database to continually provide you with the best experience possible
+                        Currently, Transparenz Health is able to provide accurate data on medical pricing for some of the largest hospital systems in the New York Metropolitan area. TNZNZ is hoping to expand its services and grow its database to continually provide you with the best experience possible
                     </Text>
                 </HomeContainer3>
 

@@ -23,7 +23,7 @@ const Navbar = ({ toggleSidebar }) => {
             <FaBars />
           </MobileIcon>
           <NavItem>
-            <NavLink style={{ color: 'inherit', textDecoration: 'none' }} to="/TNZNZ-Health/">TNZNZ Health</NavLink>
+            <NavLink style={{ color: 'inherit', textDecoration: 'none' }} to="/TNZNZ-Health/">Transparenz</NavLink>
           </NavItem>
           <NavItem>
             <NavLoginContainer>
