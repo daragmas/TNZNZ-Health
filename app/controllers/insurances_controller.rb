@@ -18,6 +18,11 @@ class InsurancesController < ApplicationController
         render json: insurance, status: 201
     end
 
+    def index_for_user
+        insurances = Insurance.where(user_id: params[:id])
+        render json: insurances
+    end
+
     
     def update
         insurance = Insurance.find_by!(id: params[:id])

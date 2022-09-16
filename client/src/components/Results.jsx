@@ -45,7 +45,7 @@ const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals, setPric
                             return (
                                 <option key={insurance} index={index} name={insurance} value={thisHospitalData.insurances[insurance]}>{insurance.split('_').map((word) =>
                                     // capitalizing the abbreviations on the list
-                                    word.length <= 4 && !word.startsWith('p') ? word.toUpperCase() : word).map((word) =>
+                                    word.length <= 4 && !word.startsWith('pl') ? word.toUpperCase() : word).map((word) =>
                                         word.slice(0, 1).toUpperCase() + word.slice(1)).join(' ')}
                                 </option>
                             )

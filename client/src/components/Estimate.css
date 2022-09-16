@@ -1,0 +1,62 @@
+.outer-estimate {
+    width: 100%;
+    padding: 0 25%;
+}
+
+.estimate {
+    padding-top: 10%;
+}
+
+.summary {
+    font-size: larger;
+}
+
+.point {
+    font-size: large;
+}
+
+.estimate-question {
+    color: rgb(39, 39, 39)
+}
+
+.number-container {
+    margin-top: 2%;
+}
+
+.odd {
+    background-color: #4aa08c;
+    color: white;
+}
+
+.even {
+    color: rgb(39, 39, 39)
+}
+
+.double {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: small;
+}
+
+.number-container input {
+    margin-top: 1%;
+}
+.saved-insurance-container {
+    display: flex;
+}
+.insurance-card {
+    border-radius: 10px;
+    border: 2px solid rgba(110, 110, 110, 0.552);
+    width: 300px;
+    height: auto;
+    margin: 4% 15%;
+}
+
+.estimate-form-container {
+    text-align: left;
+}
+
+.hover {
+    cursor: pointer;
+}
