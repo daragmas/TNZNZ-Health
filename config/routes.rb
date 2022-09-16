@@ -27,5 +27,7 @@ Rails.application.routes.draw do
 
   get '/hospitals/nearby/:zip', to: 'hospitals#nearby'
 
+  get '/users/:id/insurances', to: 'insurances#index_for_user'
+
 
 end
