@@ -35,19 +35,19 @@ function App() {
 
   useEffect(() => {
     const getUser = async () => {
-      const req= await fetch("http://127.0.0.1:3000/me", {
+      const req = await fetch("http://127.0.0.1:3000/me", {
         headers: {
           Authorization: `Bearer ${Cookies.get('token')}`,
         },
       })
       if (req.ok) {
         const data = await req.json()
-        dispatch(login({id: data.id,  username: data.username, email: data.email, zip_code: data.zip_code }))
-      } 
+        dispatch(login({ id: data.id, username: data.username, email: data.email, zip_code: data.zip_code }))
+      }
 
     }
     getUser()
-      
+
   }, [])
 
   const [searchedProcedure, setSearchedProcedure] = useState({})
@@ -65,20 +65,20 @@ function App() {
       <Routes>
         {/* Add routes here */}
         <Route
-          path="/login"
+          path="/TNZNZ-Health/login"
           element={
             <LoginForm />
           }
         />
         <Route
-          path="/register"
+          path="/TNZNZ-Health/register"
           element={
             <RegisterForm />
           }
 
         />
         <Route
-          path="/results"
+          path="/TNZNZ-Health/results"
           element={<Results
             searchedProcedure={searchedProcedure}
             selectedHospital={selectedHospital}
@@ -86,9 +86,9 @@ function App() {
             setPricingForEstimate={setPricingForEstimate}
           />}
         />
-        <Route index element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/search" element={
+        <Route path='/TNZNZ-Health' element={<Home />} />
+        <Route path="/TNZNZ-Health/profile" element={<Profile />} />
+        <Route path="/TNZNZ-Health/search" element={
 
           <Search
             searchedProcedure={searchedProcedure}
@@ -97,7 +97,7 @@ function App() {
             setNearbyHospitals={setNearbyHospitals}
             nearbyHospitals={nearbyHospitals} />} />
         <Route
-          path="/estimate"
+          path="/TNZNZ-Health/estimate"
           element={<Estimate
             pricingForEstimate={pricingForEstimate}
           />}

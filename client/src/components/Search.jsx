@@ -96,7 +96,7 @@ const Search = ({
     const handleHospitalClick = (e) => {
         // console.log(e.target.id)
         setSelectedHospital(nearbyHospitals[e.target.id]);
-        navigate("/results");
+        navigate("/TNZNZ-Health/results");
     };
 
     // Dynamic HTML Components

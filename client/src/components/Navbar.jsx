@@ -20,7 +20,7 @@ const Navbar = ({ toggleSidebar }) => {
             <FaBars />
           </MobileIcon>
           <NavItem>
-            <NavLink style={{color: 'inherit', textDecoration: 'none'}} to="/">TNZNZ Health</NavLink>
+            <NavLink style={{ color: 'inherit', textDecoration: 'none' }} to="/TNZNZ-Health/">TNZNZ Health</NavLink>
           </NavItem>
           <NavItem>
             <NavLoginContainer>
@@ -35,13 +35,13 @@ const Navbar = ({ toggleSidebar }) => {
                   >
                     Logout
                   </NavLogoutBtn>
-                  <NavLoginItem to="/profile">Profile</NavLoginItem>
+                  <NavLoginItem to="/TNZNZ-Health/profile">Profile</NavLoginItem>
 
                 </>
               ) : (
                 <>
                   <NavLoginItem to="/login">Login</NavLoginItem>
-                  <NavLoginItem to="/register">Register</NavLoginItem>
+                    <NavLoginItem to="/TNZNZ-Health/register">Register</NavLoginItem>
                 </>
               )}
             </NavLoginContainer>

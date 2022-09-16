@@ -26,7 +26,7 @@ const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals, setPric
 
     const handleClick = () => {
         setPricingForEstimate(thisHospitalData)
-        navigate("/estimate")
+        navigate("/TNZNZ-Health/estimate")
     }
 
     return (
