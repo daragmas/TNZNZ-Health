@@ -18,7 +18,7 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
     const [calculatedCost, setCalculatedCost] = useState(null)
     const [copayApplication, setCopayApplication] = useState(0)
     const [deductibleApplication, setDeductibleApplication] = useState(0)
-    const [coinsruranceApplication, setCoinsuranceApplication] = useState(0)
+    const [coinsuranceApplication, setCoinsuranceApplication] = useState(0)
     const [showNicknameMenu, setShowNicknameMenu] = useState(false)
     const [nickname, setNickname] = useState('')
 
@@ -118,10 +118,10 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
         }
         let deduct = maxDeductible - deductibleMet
         if (cost > 0) {
-            if (maxOutOfPocket == outOfPocketMet) {
+            if (maxOutOfPocket == outOfPocketMet && maxOutOfPocket > copay) {
                 return 0
             } else if (cost < copay) {
-                setCopayApplication(evaluateOOP(cost))
+                maxOutOfPocket != 0 ? setCopayApplication(evaluateOOP(cost)) : setCopayApplication(cost)
                 return evaluateOOP(cost)
             } else if (cost < (copay + deduct)) {
                 setCopayApplication(copay)
@@ -215,7 +215,7 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
                 <div className='estimate-results-container'>
                     <div className='estimate-card'>
                         <div className='cost-container'>
-                            Your expected responsibility: ${parseFloat(calculatedCost).toFixed(2)}
+                            Your expected responsibility: ${maxOutOfPocket !== 0 ? parseFloat(calculatedCost).toFixed(2) : parseFloat(copayApplication).toFixed(2)}
                         </div>
                         {(!getBoolean(isCovered) || !getBoolean(isParticipating)) && awaitingResult                           
                             ?
@@ -232,7 +232,16 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
                                         Amount applied to deductible: ${parseFloat(deductibleApplication).toFixed(2)}
                                     </div>
                                     <div>
-                                        Amount applied to coinsurance: ${parseFloat(coinsruranceApplication).toFixed(2)}
+                                        Amount applied to coinsurance: ${parseFloat(coinsuranceApplication).toFixed(2)}
+                                    </div>
+                                    <div>
+                                        Your Savings: ${parseFloat(gross_charges - parseFloat(coinsuranceApplication).toFixed(2) - parseFloat(deductibleApplication).toFixed(2) - parseFloat(copayApplication).toFixed(2)).toFixed(2)}
+                                    </div>
+                                    <div>
+                                        Insurance Discount: ${parseFloat(gross_charges - insurances[insurance]).toFixed(2)}
+                                    </div>
+                                    <div>
+                                        Insurance Payout: ${parseFloat(insurances[insurance] - parseFloat(coinsuranceApplication).toFixed(2) - parseFloat(deductibleApplication).toFixed(2) - parseFloat(copayApplication).toFixed(2)).toFixed(2)}
                                     </div>
                                 </div>
                                 <div>
