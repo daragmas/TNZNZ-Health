@@ -1,12 +1,13 @@
 const CategoryCard = ({ commonCodes, selectedCategory, handleChange, setSearchTerm }) => {
     return (
         <div className="selected-category-card" hidden={selectedCategory?false:true}>
-            <h4
+            <h2
+                className="selected-category-card-title"
                 id={selectedCategory}
                 // onClick={(e) => handleChange(e.target.id, setSelectedCategory)}
             >
-                {selectedCategory}
-            </h4>
+                <u>{selectedCategory}</u>
+            </h2>
             <div
                 className="selected-category-card-list-container"
                 // hidden={category === selectedCategory ? false : true}

@@ -4,8 +4,12 @@ hr {
 
 .category-card {
     border: 2px solid #ccc;
-    padding: 0 2%;
+    border-radius: 1rem;
+    padding: 0;
     margin: 0.5%;
+    width: 8.5rem;
+    height: auto;
+    background-color: #4aa08c;
 }
 
 .category-cards-container {
@@ -14,10 +18,23 @@ hr {
     justify-content: center;
     margin: 0 auto;
     width: 60vw;
+    
 }
 
+.category-card-image{
+    height: 6rem;
+    width: auto;
+    padding: 2%;
+}
+
+.category-card-title{
+    padding: 0 2%;
+    margin: 0.5rem;
+}
 .selected-category-card {
+    background-color: #4aa08c;
     border: 2px solid #ccc;
+    border-radius: 1rem;
     /* display: flex; */
     justify-content: center;
     margin: 2% auto;
@@ -32,4 +49,8 @@ hr {
     list-style-type: none;
     line-height: 1.5rem;
     text-align: left;
+}
+
+u{
+    height:1rem;
 }

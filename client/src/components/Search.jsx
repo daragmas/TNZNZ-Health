@@ -129,7 +129,7 @@ const Search = ({
             ? null
             : common_categories.push(code.category)
     );
-    console.log(searchedProcedure)
+    console.log(selectedCategory)
     //Exported Component
     return (
         <>
@@ -173,6 +173,7 @@ const Search = ({
                         key={category}
                     />)}
                 </div>
+                
             <SelectedCategoryCard
                 commonCodes={commonCodes}
                 selectedCategory={selectedCategory}
