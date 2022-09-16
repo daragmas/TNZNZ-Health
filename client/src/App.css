@@ -27,6 +27,12 @@
 
 .homescreen {
   position: relative;
+  /* background-color: aqua; */
+}
+
+.homecontainer3 {
+  display: flex;
+  margin: 15px;
 }
 
 .image {
@@ -34,6 +40,11 @@
   /* height: 500px; */
   width: 50vw;
 
+}
+
+.image3 {
+  position: relative;
+  width: 35vw;
 }
 
 .img-container {
@@ -44,6 +55,7 @@
 .image2 {
   position: relative;
   width: 15vw;
+  margin-top: 3em;
 }
 
 .startBtn {
@@ -53,19 +65,29 @@
   margin-bottom: 1em;
 }
 
+.titlegif {
+  width: 40vw;
+}
+
 .title-container {
-  /* place-items: center; */
   height: 100vh;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 90px;
 }
 
 .title {
   animation: fade .3s ease-in;
-  font-size: 10vw;
+  font-size: 8vw;
   color: #ccc;
+  width: 50vw;
   /* padding-bottom: 90px; */
+}
+
+.text {
+  padding: 2em;
 }
 
 .Video {
