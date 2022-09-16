@@ -1,5 +1,5 @@
 
-import { Nav, NavbarContainer, NavItem, NavLogo, NavLoginContainer, NavLoginItem, NavLogoutBtn, MobileIcon } from "./styles/navbar";
+import { Nav, NavbarContainer, NavItem, NavLogo, NavLoginContainer, NavLoginItem, NavLogoutBtn, MobileIcon, NavLogoContainer } from "./styles/navbar";
 import { FaBars } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
@@ -14,7 +14,10 @@ const Navbar = ({ toggleSidebar }) => {
       <Nav>
         <NavbarContainer>
           <NavItem>
-            <NavLogo image={process.env.PUBLIC_URL + "/logo.png"} />
+            {/* <NavLogoContainer> */}
+            <NavLogo src={process.env.PUBLIC_URL + "/logo.png"} />
+
+            {/* </NavLogoContainer> */}
           </NavItem>
           <MobileIcon onClick={toggleSidebar}>
             <FaBars />

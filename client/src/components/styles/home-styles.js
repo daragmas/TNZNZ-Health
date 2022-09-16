@@ -1,31 +1,33 @@
 import styled from 'styled-components'
 
 export const HomeContainer = styled.div`
-        /* position: relative; */
-        display: grid;
-      background-color: #eee;
-      width: 50vw;
-      transform: translate(10vw);
-      border-radius:10px;
-      padding: 10px;
+        position: relative;
+        display: flex;
+      background-color: #03C8A8;
+      width: 100%;
+      /* transform: translate(10vw); */
+      padding-left: 5em;
       margin-bottom: 20px;
-      margin-left: 50%;
-      transform: translate(-50%);
+      /* margin-left: 50%; */
+      /* transform: translate(-50%); */
       
 
 `
 
 export const Text = styled.h1`
 
-    color: black;
+    color: white;
     font-size:1.5em;
     z-index:2;
+    letter-spacing: 0.05em;
 
 `
 
 export const Disclaimer = styled.p`
-    color: red;
-    font-size:1.1em;
+    color: black;
+    font-size:1.3em;
+    font-weight: bold;
+
 `
 
 export const Button = styled.button`
@@ -42,16 +44,7 @@ export const Button = styled.button`
     }
     
 `
-export const Image = styled.img`
-    position: relative;
-    /* left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%); */
-    
-    height: 150px;
-    width: 150px;
-    margin: 20px;    
-`
+
 
 export const Footer = styled.div`
     width: auto;

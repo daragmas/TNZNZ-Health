@@ -6,7 +6,7 @@
 
 .App {
   text-align: center;
-  color: #ccc;
+  color: rgb(0, 0, 0);
 }
 
 
@@ -25,7 +25,33 @@
   padding: 3em;
 }
 
-/* .homepage {} */
+.homescreen {
+  position: relative;
+}
+
+.image {
+  position: relative;
+  /* height: 500px; */
+  width: 50vw;
+
+}
+
+.img-container {
+  position: relative;
+  height: auto;
+}
+
+.image2 {
+  position: relative;
+  width: 15vw;
+}
+
+.startBtn {
+  width: 15vw;
+  height: 5vh;
+  font-size: 2em;
+  margin-bottom: 1em;
+}
 
 .title-container {
   /* place-items: center; */
@@ -37,8 +63,9 @@
 
 .title {
   animation: fade .3s ease-in;
-  font-size: 10em;
-  padding-bottom: 90px;
+  font-size: 10vw;
+  color: #ccc;
+  /* padding-bottom: 90px; */
 }
 
 .Video {
@@ -48,7 +75,7 @@
   top: 0;
   left: 0;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
 
 }
 
