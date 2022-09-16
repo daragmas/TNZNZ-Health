@@ -16,6 +16,11 @@ class PricingsController < ApplicationController
         render json: p, serializer: nil
     end
 
+    def show_pricing_with_hospital_and_procedure
+        pricing = Pricing.find_by!(id: params[:id])
+        render json: pricing, serializer: PricingHospitalProcedureSerializer, insurance_name: params[:insurance_name]
+    end
+
     private
 
     def render_404

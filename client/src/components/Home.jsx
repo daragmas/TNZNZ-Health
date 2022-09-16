@@ -55,12 +55,12 @@ const Home = () => {
 
 
                     <Link
-                        className='Link' to='/search'>
+                        className='Link' to='/TNZNZ-Health/search'>
                     </Link>
 
                     <Image src="https://img.icons8.com/cotton/344/hospital--v3.png" />
 
-                    <Link to='/search'>
+                    <Link to='/TNZNZ-Health/search'>
                         <Text>Start Here!</Text>
                     </Link>
 

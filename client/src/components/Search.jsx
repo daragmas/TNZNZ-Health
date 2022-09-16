@@ -16,7 +16,7 @@ const Search = ({
     //Setting up redirect
     let navigate = useNavigate();
     let user = useSelector(state => state.user.value)
-    console.log(user.zip_code)
+    // console.log(user.zip_code)
     //User Input
     const [searchTerm, setSearchTerm] = useState("");
     const [searchZip, setSearchZip] = useState("");
@@ -63,6 +63,18 @@ const Search = ({
         );
         const res = await req.json();
         setSearchedProcedure(res);
+        if (searchZip.length == 5) {
+            const req = await fetch(
+                `http://localhost:3000/hospitals/nearby/${searchZip}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get("token")}`,
+                    },
+                }
+            );
+            const res = await req.json()
+            setNearbyHospitals(res);
+        }
     };
 
     const handleZipSubmit = async (e) => {

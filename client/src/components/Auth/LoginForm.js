@@ -25,7 +25,7 @@ const LoginForm = () => {
     password: ""
   });
   const [errors, setErrors] = useState(null)
-  console.log('username', user.username)
+  // console.log('username', user.username)
   if (user.username) {
     return <Navigate to="/" replace />;
   }

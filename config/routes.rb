@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :common_procedure_codes, only: [:index, :show]
   resources :hospitals, only: [:index, :show]
   resources :categories, only: [:index, :show]
+  resources :insurances
 
 
   get '/procedure_codes/by_code/:code', to: 'procedure_codes#show_by_code'
@@ -25,5 +26,6 @@ Rails.application.routes.draw do
   get '/pricings/hospitals/:hospital_id/procedure_codes/:procedure_code_id', to: 'pricings#show_pricing_by_hospital_and_procedure'
 
   get '/hospitals/nearby/:zip', to: 'hospitals#nearby'
+
 
 end

@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  coinsurance: 1.5
+  copay: 1.5
+  deductible: 1.5
+  deductible_met: 1.5
+  insurance: MyString
+  in_network: false
+  out_of_pocket: 1.5
+  out_of_pocket_met: 1.5
+  service_category: MyString
+  user_id: 1
+
+two:
+  coinsurance: 1.5
+  copay: 1.5
+  deductible: 1.5
+  deductible_met: 1.5
+  insurance: MyString
+  in_network: false
+  out_of_pocket: 1.5
+  out_of_pocket_met: 1.5
+  service_category: MyString
+  user_id: 1

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import ResultCards from "./ResultCards"
 import { useNavigate } from "react-router-dom"
 
-const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals, setPricingForEstimate }) => {
+const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals, setPricingForEstimate, setInsuranceForEstimate }) => {
     const [thisHospitalData, setThisHospitalData] = useState({})
     const [selectedCost, setSelectedCost] = useState(-1)
     const [selectedInsuranceName, setSelectedInsuranceName] = useState('')
@@ -86,6 +86,7 @@ const Results = ({ searchedProcedure, selectedHospital, nearbyHospitals, setPric
                             selectedCost={selectedCost}
                             selectedInsuranceName={selectedInsuranceName}
                             setPricingForEstimate={setPricingForEstimate}
+                            setInsuranceForEstimate={setInsuranceForEstimate}
                         />
                     )
                 })}

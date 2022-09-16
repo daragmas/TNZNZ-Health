@@ -1,9 +1,9 @@
 
-import { Nav, NavbarContainer, NavItem, NavLogo, NavLoginContainer, NavLoginItem,NavLogoutBtn, MobileIcon } from "./styles/navbar";
+import { Nav, NavbarContainer, NavItem, NavLogo, NavLoginContainer, NavLoginItem, NavLogoutBtn, MobileIcon } from "./styles/navbar";
 import { FaBars } from 'react-icons/fa'
-import { useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import {login} from '../redux/user'
+import { login } from '../redux/user'
 import Cookies from "js-cookie";
 import { NavLink } from "react-router-dom";
 const Navbar = ({ toggleSidebar }) => {
@@ -40,8 +40,8 @@ const Navbar = ({ toggleSidebar }) => {
                 </>
               ) : (
                 <>
-                  <NavLoginItem to="/login">Login</NavLoginItem>
-                    <NavLoginItem to="/TNZNZ-Health/register">Register</NavLoginItem>
+                  <NavLoginItem to="/TNZNZ-Health/login">Login</NavLoginItem>
+                  <NavLoginItem to="/TNZNZ-Health/register">Register</NavLoginItem>
                 </>
               )}
             </NavLoginContainer>
