@@ -178,7 +178,7 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
                 <div className='estimate-results-container'>
                     <div className='estimate-card'>
                         <div className='cost'>
-                            Your expected cost: {parseFloat(calculatedCost).toFixed(2)}
+                            Your expected responsibility: ${parseFloat(calculatedCost).toFixed(2)}
                         </div>
                         { !getBoolean(isCovered) || !getBoolean(isParticipating)                            ?
                                 <div>
@@ -187,13 +187,13 @@ const Estimate = ({ pricingForEstimate, insurance }) => {
                             :
                                 <div>
                                     <div>
-                                        Amount applied to copay: {parseFloat(copayApplication).toFixed(2)}
+                                        Amount applied to copay: ${parseFloat(copayApplication).toFixed(2)}
                                     </div>
                                     <div>
-                                        Amount applied to deductible: {parseFloat(deductibleApplication).toFixed(2)}
+                                        Amount applied to deductible: ${parseFloat(deductibleApplication).toFixed(2)}
                                     </div>
                                     <div>
-                                        Amount applied to coinsurance: {parseFloat(coinsruranceApplication).toFixed(2)}
+                                        Amount applied to coinsurance: ${parseFloat(coinsruranceApplication).toFixed(2)}
                                     </div>
                                 </div>
                         }
