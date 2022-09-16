@@ -7,23 +7,23 @@ const CategoryCard = ({category, commonCodes, selectedCategory, setSelectedCateg
             >
                 {category}
             </h4>
-            <div
+            {/* <div
                 className="category-card-list-container"
                 hidden={category === selectedCategory ? false : true}>
                 <ul className="category-card-list">
                     {commonCodes?.map((code) =>
                         code.category === category ? (
-                            <li
+                            <li className="category-card-list-item"
                                 key={code.id}
                                 value={code.code}
                                 onClick={(e)=>handleChange(e.target.value, setSearchTerm)}
                             >
-                                {code.code}:{code.description}
+                                {code.code} : {code.description}
                             </li>
                         ) : null
                     )}
                 </ul>
-            </div>
+            </div> */}
         </div>
     );
 }

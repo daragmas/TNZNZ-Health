@@ -4,7 +4,10 @@ import { useNavigate } from "react-router-dom";
 import CategoryCard from "./CategoryCard";
 import HostpitalList from "./HospitalList";
 import ProcedureInfo from "./ProcedureInfo";
+import SelectedCategoryCard from './SelectedCategoryCard'
 import { useSelector } from 'react-redux'
+import './styles/search.css'
+
 const Search = ({
     searchedProcedure,
     setSelectedHospital,
@@ -16,7 +19,7 @@ const Search = ({
     //Setting up redirect
     let navigate = useNavigate();
     let user = useSelector(state => state.user.value)
-    // console.log(user.zip_code)
+
     //User Input
     const [searchTerm, setSearchTerm] = useState("");
     const [searchZip, setSearchZip] = useState("");
@@ -28,6 +31,7 @@ const Search = ({
     useEffect(() => {
         setSearchZip(user.zip_code)
     }, [user])
+
     const getData = async (setter, route) => {
         // console.log("token", Cookies.get("token"));
         const req = await fetch(`http://localhost:3000/${route}`, {
@@ -75,6 +79,10 @@ const Search = ({
             const res = await req.json()
             setNearbyHospitals(res);
         }
+
+        if (searchedProcedure.error) {
+            alert(searchedProcedure.error)
+        }
     };
 
     const handleZipSubmit = async (e) => {
@@ -108,7 +116,8 @@ const Search = ({
     const handleHospitalClick = (e) => {
         // console.log(e.target.id)
         setSelectedHospital(nearbyHospitals[e.target.id]);
-        navigate("/TNZNZ-Health/results");
+        if (searchedProcedure.error) { alert("Please search for a valid Procedure Code.") }
+        else { navigate("/TNZNZ-Health/results") };
     };
 
     // Dynamic HTML Components
@@ -120,7 +129,7 @@ const Search = ({
             ? null
             : common_categories.push(code.category)
     );
-
+    console.log(searchedProcedure)
     //Exported Component
     return (
         <>
@@ -151,16 +160,24 @@ const Search = ({
             <hr></hr>
 
             <h2>Common Categories</h2>
-            {common_categories?.map((category) =>
-                <CategoryCard
-                    category={category}
-                    commonCodes={commonCodes}
-                    selectedCategory={selectedCategory}
-                    setSelectedCategory={setSelectedCategory}
-                    handleChange={handleChange}
-                    setSearchTerm={setSearchTerm}
-                    key={category}
-                />)}
+            <div className="category-cards-container">
+
+                {common_categories?.map((category) =>
+                    <CategoryCard
+                        category={category}
+                        commonCodes={commonCodes}
+                        selectedCategory={selectedCategory}
+                        setSelectedCategory={setSelectedCategory}
+                        handleChange={handleChange}
+                        setSearchTerm={setSearchTerm}
+                        key={category}
+                    />)}
+                </div>
+            <SelectedCategoryCard
+                commonCodes={commonCodes}
+                selectedCategory={selectedCategory}
+                handleChange={handleChange}
+                setSearchTerm={setSearchTerm}/>
         </>
     );
 };

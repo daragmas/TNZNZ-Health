@@ -1,0 +1,35 @@
+hr {
+    width: 30%;
+}
+
+.category-card {
+    border: 2px solid #ccc;
+    padding: 0 2%;
+    margin: 0.5%;
+}
+
+.category-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+    width: 60vw;
+}
+
+.selected-category-card {
+    border: 2px solid #ccc;
+    /* display: flex; */
+    justify-content: center;
+    margin: 2% auto;
+    width: 60vw;
+}
+
+.selected-category-card-list-container{
+    display:flex;
+}
+
+.selected-category-card-list-item {
+    list-style-type: none;
+    line-height: 1.5rem;
+    text-align: left;
+}

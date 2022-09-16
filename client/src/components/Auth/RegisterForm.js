@@ -26,7 +26,7 @@ const RegisterForm = () => {
   });
   const [errors, setErrors] = useState(null)
   if (user.username) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/TNZNZ_Health" replace />;
   }
   const handleChange = (e) => {
     setFormData({...formData, [e.target.name]:e.target.value})

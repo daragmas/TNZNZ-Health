@@ -56,8 +56,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_16_043643) do
   end
 
   create_table "pricings", force: :cascade do |t|
-    t.integer "hospital_id"
-    t.integer "procedure_code_id"
+    t.float "hospital_id"
+    t.float "procedure_code_id"
     t.float "gross_charges"
     t.float "discounted_cash_price"
     t.float "aetna"
