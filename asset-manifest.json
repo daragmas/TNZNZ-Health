@@ -1,15 +1,18 @@
 {
   "files": {
-    "main.css": "/TNZNZ-Health/static/css/main.aaa68e49.css",
-    "main.js": "/TNZNZ-Health/static/js/main.ad0572a6.js",
+    "main.css": "/TNZNZ-Health/static/css/main.624a047f.css",
+    "main.js": "/TNZNZ-Health/static/js/main.8615af82.js",
     "static/media/dust.mp4": "/TNZNZ-Health/static/media/dust.04a167bb8d5fcf51f404.mp4",
-    "static/media/docPic.jpg": "/TNZNZ-Health/static/media/docPic.1f202188beb5f096e64f.jpg",
+    "static/media/Searching.gif": "/TNZNZ-Health/static/media/Searching.bcd41407d5fec657e5d0.gif",
+    "static/media/HomepageHand.png": "/TNZNZ-Health/static/media/HomepageHand.d804e0821afb60392f8e.png",
+    "static/media/MedicalparachuteHomepage.png": "/TNZNZ-Health/static/media/MedicalparachuteHomepage.03794c80f50da08aef97.png",
+    "static/media/Logo4_transparenz.png": "/TNZNZ-Health/static/media/Logo4_transparenz.c38c43b77fb9ec564287.png",
     "index.html": "/TNZNZ-Health/index.html",
-    "main.aaa68e49.css.map": "/TNZNZ-Health/static/css/main.aaa68e49.css.map",
-    "main.ad0572a6.js.map": "/TNZNZ-Health/static/js/main.ad0572a6.js.map"
+    "main.624a047f.css.map": "/TNZNZ-Health/static/css/main.624a047f.css.map",
+    "main.8615af82.js.map": "/TNZNZ-Health/static/js/main.8615af82.js.map"
   },
   "entrypoints": [
-    "static/css/main.aaa68e49.css",
-    "static/js/main.ad0572a6.js"
+    "static/css/main.624a047f.css",
+    "static/js/main.8615af82.js"
   ]
 }
